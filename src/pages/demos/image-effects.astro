@@ -1,0 +1,286 @@
+---
+import Layout from "../../layouts/Layout.astro";
+const img = "/cat-optimized.jpg";
+---
+
+<Layout title="Image Effects">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-5xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Image Effects</h1>
+      <p class="text-zinc-500 mb-12">
+        Filters, masks, and interactive effects — all with CSS. Same optimized
+        cat, different vibes.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <!-- Filters -->
+        <section>
+          <h2 class="text-lg font-semibold text-zinc-300 mb-4">Filters</h2>
+          <div class="space-y-4">
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                grayscale(100%) · saturate(0)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="w-full aspect-[4/3] object-cover [filter:grayscale(100%)]"
+              />
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                sepia(80%)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="w-full aspect-[4/3] object-cover [filter:sepia(80%)]"
+              />
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                blur(2px)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="w-full aspect-[4/3] object-cover [filter:blur(2px)]"
+              />
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                saturate(2) · contrast(1.2)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="w-full aspect-[4/3] object-cover [filter:saturate(2)_contrast(1.2)]"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Masks & clip-path -->
+        <section>
+          <h2 class="text-lg font-semibold text-zinc-300 mb-4">Masks & clip-path</h2>
+          <div class="space-y-4">
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                clip-path: circle()
+              </div>
+              <div class="aspect-square flex items-center justify-center bg-zinc-900">
+                <img
+                  src={img}
+                  alt=""
+                  class="img-mask-circle w-48 h-48 object-cover"
+                />
+              </div>
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                clip-path: polygon()
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="img-mask-poly w-full aspect-[4/3] object-cover"
+              />
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                mask: radial-gradient (vignette)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="img-mask-vignette w-full aspect-[4/3] object-cover"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Animations -->
+        <section>
+          <h2 class="text-lg font-semibold text-zinc-300 mb-4">Animations</h2>
+          <div class="space-y-4">
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                hover: grayscale → color (transition)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="img-hover-color w-full aspect-[4/3] object-cover cursor-pointer"
+              />
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                hover: scale
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="img-hover-scale w-full aspect-[4/3] object-cover cursor-pointer"
+              />
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                infinite pulse (opacity)
+              </div>
+              <img
+                src={img}
+                alt=""
+                class="img-pulse w-full aspect-[4/3] object-cover"
+              />
+            </div>
+          </div>
+        </section>
+
+        <!-- Interactive -->
+        <section>
+          <h2 class="text-lg font-semibold text-zinc-300 mb-4">Interactive</h2>
+          <div class="space-y-4">
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                spotlight (mouse position)
+              </div>
+              <div
+                id="spotlight"
+                class="img-spotlight relative w-full aspect-[4/3] cursor-crosshair overflow-hidden"
+              >
+                <img
+                  src={img}
+                  alt=""
+                  class="w-full h-full object-cover"
+                />
+                <div
+                  id="spotlight-glow"
+                  class="absolute inset-0 pointer-events-none"
+                ></div>
+              </div>
+            </div>
+            <div class="rounded-lg border border-zinc-800 overflow-hidden">
+              <div class="text-xs font-mono text-zinc-500 px-3 py-2 bg-zinc-900/50">
+                tilt (mouse position · 3D)
+              </div>
+              <div
+                id="tilt"
+                class="img-tilt relative w-full aspect-[4/3] cursor-crosshair overflow-hidden rounded-b-lg"
+              >
+                <img
+                  src={img}
+                  alt=""
+                  class="tilt-inner w-full h-full object-cover"
+                />
+              </div>
+            </div>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .img-mask-circle {
+    clip-path: circle(50%);
+  }
+  .img-mask-poly {
+    clip-path: polygon(0 0, 100% 0, 100% 85%, 0 100%);
+  }
+  .img-mask-vignette {
+    mask-image: radial-gradient(
+      ellipse 70% 70% at 50% 50%,
+      black 40%,
+      transparent 100%
+    );
+    -webkit-mask-image: radial-gradient(
+      ellipse 70% 70% at 50% 50%,
+      black 40%,
+      transparent 100%
+    );
+  }
+  .img-hover-color {
+    filter: grayscale(100%);
+    transition: filter 0.3s ease;
+  }
+  .img-hover-color:hover {
+    filter: grayscale(0);
+  }
+  .img-hover-scale {
+    transition: transform 0.3s ease;
+  }
+  .img-hover-scale:hover {
+    transform: scale(1.05);
+  }
+  .img-pulse {
+    animation: img-pulse 2s ease-in-out infinite;
+  }
+  @keyframes img-pulse {
+    0%,
+    100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.6;
+    }
+  }
+  .img-spotlight #spotlight-glow {
+    background: radial-gradient(
+      circle 80px at var(--mx, 50%) var(--my, 50%),
+      transparent 0%,
+      rgba(0, 0, 0, 0.4) 100%
+    );
+  }
+  .img-tilt .tilt-inner {
+    --tx: 0deg;
+    --ty: 0deg;
+    transform: perspective(600px) rotateX(var(--ty)) rotateY(var(--tx));
+    transition: transform 0.1s ease-out;
+  }
+</style>
+
+<script>
+  // Spotlight: darken everywhere except under cursor
+  const spotlight = document.getElementById("spotlight") as HTMLElement | null;
+  const glow = document.getElementById("spotlight-glow") as HTMLElement | null;
+  if (spotlight && glow) {
+    spotlight.addEventListener("mousemove", (e) => {
+      const rect = spotlight.getBoundingClientRect();
+      const x = ((e.clientX - rect.left) / rect.width) * 100;
+      const y = ((e.clientY - rect.top) / rect.height) * 100;
+      glow.style.setProperty("--mx", `${x}%`);
+      glow.style.setProperty("--my", `${y}%`);
+    });
+    spotlight.addEventListener("mouseleave", () => {
+      glow.style.setProperty("--mx", "50%");
+      glow.style.setProperty("--my", "50%");
+    });
+  }
+
+  // Tilt: subtle 3D parallax
+  const tilt = document.getElementById("tilt") as HTMLElement | null;
+  const tiltInner = tilt?.querySelector(".tilt-inner") as HTMLElement | null;
+  if (tilt && tiltInner) {
+    tilt.addEventListener("mousemove", (e) => {
+      const rect = tilt.getBoundingClientRect();
+      const cx = rect.left + rect.width / 2;
+      const cy = rect.top + rect.height / 2;
+      const dx = (e.clientX - cx) / rect.width;
+      const dy = (e.clientY - cy) / rect.height;
+      const tx = Math.max(-8, Math.min(8, dx * 12));
+      const ty = Math.max(-8, Math.min(8, -dy * 12));
+      tiltInner.style.setProperty("--tx", `${tx}deg`);
+      tiltInner.style.setProperty("--ty", `${ty}deg`);
+    });
+    tilt.addEventListener("mouseleave", () => {
+      tiltInner.style.setProperty("--tx", "0deg");
+      tiltInner.style.setProperty("--ty", "0deg");
+    });
+  }
+</script>
