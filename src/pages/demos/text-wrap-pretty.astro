@@ -1,13 +1,18 @@
 ---
-import Layout from '../../layouts/Layout.astro';
+import Layout from "../../layouts/Layout.astro";
 
 const sampleText =
-  'The quick brown fox jumps over the lazy dog. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.';
+  "The quick brown fox jumps over the lazy dog. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.";
 ---
+
 <Layout title="text-wrap: pretty">
   <main class="min-h-screen bg-zinc-950 text-zinc-100">
     <div class="max-w-4xl mx-auto px-6 py-16">
-      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
       <h1 class="text-3xl font-semibold mb-2">text-wrap: pretty</h1>
       <p class="text-zinc-500 mb-12">
         Prevents orphaned words at line breaks. Compare below.
@@ -17,14 +22,26 @@ const sampleText =
         class="resize-x overflow-auto min-w-[400px] max-w-2xl rounded-xl border border-zinc-700 bg-zinc-900/30 p-4"
       >
         <div class="grid grid-cols-2 gap-6 min-w-0">
-          <div class="rounded-lg border border-emerald-900/50 bg-emerald-950/20 p-6 min-w-0">
-            <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3">With text-wrap: pretty</div>
-            <p class="text-zinc-300 leading-relaxed" style="text-wrap: pretty">
+          <div
+            class="rounded-lg border border-emerald-900/50 bg-emerald-950/20 p-6 min-w-0"
+          >
+            <div
+              class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3"
+            >
+              With text-wrap: pretty
+            </div>
+            <p class="text-zinc-300 leading-relaxed text-pretty">
               {sampleText}
             </p>
           </div>
-          <div class="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6 min-w-0">
-            <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">Without (default)</div>
+          <div
+            class="rounded-lg border border-zinc-800 bg-zinc-900/50 p-6 min-w-0"
+          >
+            <div
+              class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3"
+            >
+              Without (default)
+            </div>
             <p class="text-zinc-300 leading-relaxed">
               {sampleText}
             </p>
@@ -33,7 +50,8 @@ const sampleText =
       </div>
 
       <p class="text-zinc-500 text-sm mt-8">
-        <strong class="text-zinc-400">Note:</strong> Drag the right edge of the outer box to resize both.
+        <strong class="text-zinc-400">Note:</strong> Drag the right edge of the outer
+        box to resize both.
       </p>
     </div>
   </main>

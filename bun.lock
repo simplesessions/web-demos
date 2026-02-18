@@ -11,6 +11,9 @@
         "reveal.js": "^5.2.1",
         "tailwindcss": "^4.1.18",
       },
+      "devDependencies": {
+        "@types/culori": "^4.0.1",
+      },
     },
   },
   "packages": {
@@ -245,6 +248,8 @@
     "@tailwindcss/oxide-win32-x64-msvc": ["@tailwindcss/oxide-win32-x64-msvc@4.1.18", "", { "os": "win32", "cpu": "x64" }, "sha512-bJWbyYpUlqamC8dpR7pfjA0I7vdF6t5VpUGMWRkXVE3AXgIZjYUYAK7II1GNaxR8J1SSrSrppRar8G++JekE3Q=="],
 
     "@tailwindcss/vite": ["@tailwindcss/vite@4.1.18", "", { "dependencies": { "@tailwindcss/node": "4.1.18", "@tailwindcss/oxide": "4.1.18", "tailwindcss": "4.1.18" }, "peerDependencies": { "vite": "^5.2.0 || ^6 || ^7" } }, "sha512-jVA+/UpKL1vRLg6Hkao5jldawNmRo7mQYrZtNHMIVpLfLhDml5nMRUo/8MwoX2vNXvnaXNNMedrMfMugAVX1nA=="],
+
+    "@types/culori": ["@types/culori@4.0.1", "", {}, "sha512-43M51r/22CjhbOXyGT361GZ9vncSVQ39u62x5eJdBQFviI8zWp2X5jzqg7k4M6PVgDQAClpy2bUe2dtwEgEDVQ=="],
 
     "@types/debug": ["@types/debug@4.1.12", "", { "dependencies": { "@types/ms": "*" } }, "sha512-vIChWdVG3LG1SMxEvI/AK+FWJthlrqlTu7fbrlywTkkaONwk/UAGaULXRlf8vkzFBLVm0zkMdCquhL5aOjhXPQ=="],
 

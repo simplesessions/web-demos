@@ -110,14 +110,13 @@ import Layout from "../../layouts/Layout.astro";
         else if (Number(shade) <= 400) color = lerpLight(pct / 100);
         else color = lerpDark((100 - pct) / 100);
         if (!color) continue;
-        const hexStr = formatHex(color);
-        const cssStr = formatCss(color);
-        if (!hexStr || !cssStr) continue;
+        const oklchColor = color.mode === "oklch" ? color : undefined;
+        const oklchStr = oklchColor ? formatOklchRounded(oklchColor) : "";
         out[shade] = {
-          css: cssStr,
-          hex: hexStr,
-          oklch: formatOklchRounded(color),
-        };
+          css: formatCss(color),
+          hex: formatHex(color),
+          oklch: oklchStr ?? undefined,
+        } as SwatchData;
       }
       return out;
     }
