@@ -1,0 +1,68 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const headlines = [
+  "Nothing Else Like the Web as a Medium",
+  "The design is not the product",
+  "Some useful ways designers can work with developers",
+];
+---
+
+<Layout title="text-wrap: balance">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">text-wrap: balance</h1>
+      <p class="text-zinc-500 mb-12">
+        Balances line lengths in headings so no line is much shorter than
+        others. Best for titles and captions.
+      </p>
+
+      <div class="space-y-12">
+        {headlines.map((text) => (
+          <div class="space-y-4">
+            <div
+              class="resize-x overflow-auto min-w-[240px] max-w-3xl rounded-xl border border-emerald-900/50 bg-emerald-950/20 p-6"
+            >
+              <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3">
+                With balance — drag right edge to resize
+              </div>
+              <h2 class="balance-heading text-zinc-100 leading-tight text-balance">
+                {text}
+              </h2>
+            </div>
+            <div
+              class="resize-x overflow-auto min-w-[240px] max-w-3xl rounded-xl border border-zinc-800 bg-zinc-900/50 p-6"
+            >
+              <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">
+                Without — drag right edge to resize
+              </div>
+              <h2 class="balance-heading text-zinc-100 leading-tight">
+                {text}
+              </h2>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-12">
+        Each block is resizable. Balance evens out line lengths; default fills
+        greedily and can leave a short last line.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .text-balance {
+    text-wrap: balance;
+  }
+  .balance-heading {
+    font-size: clamp(1.75rem, 5vw, 3rem);
+    font-weight: 600;
+  }
+</style>
