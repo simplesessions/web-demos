@@ -1,0 +1,44 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const spacings = [4, 8, 12, 16, 24, 32, 48, 64];
+---
+
+<Layout title="Spacing Scale">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Spacing Scale</h1>
+      <p class="text-zinc-500 mb-12">
+        A consistent scale (4, 8, 12, 16…) makes handoff predictable. Devs use
+        these tokens instead of arbitrary values.
+      </p>
+
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6 space-y-6">
+        {spacings.map((px) => (
+          <div class="flex items-center gap-6">
+            <div
+              class="bg-blue-600 rounded shrink-0"
+              style={`width: ${px}px; height: ${px}px;`}
+            />
+            <div>
+              <span class="font-mono text-zinc-300">{px}px</span>
+              <span class="text-zinc-500 text-sm ml-2">
+                {px < 16 ? "tight" : px < 32 ? "default" : "loose"}
+              </span>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        Document your scale in the handoff. Tailwind uses 4 as base (4, 8, 12,
+        16…). Pick one and stick to it.
+      </p>
+    </div>
+  </main>
+</Layout>

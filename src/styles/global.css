@@ -1,1 +1,11 @@
 @import 'tailwindcss';
+
+:root {
+  --color-surface: #09090b; /* zinc-950 */
+  /* Light theme for slides */
+  --color-slide-bg: #f7f2e6;
+  --color-slide-title: #2d327b;
+  --color-slide-body: #5e5e6e;
+  --color-slide-shadow: 0 8px 32px rgba(0, 0, 0, 0.12);
+  --color-slide-viewport: #e8e4dc;
+}

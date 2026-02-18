@@ -1,0 +1,279 @@
+---
+import Layout from "../layouts/Layout.astro";
+import "reveal.js/dist/reveal.css";
+import "reveal.js/dist/theme/white.css";
+---
+
+<Layout title="Web Tech Demos – Presentation">
+  <Fragment slot="head">
+    <link
+      href="https://fonts.googleapis.com/css2?family=Zalando+Sans+Expanded:wght@400;600;700&family=Zalando+Sans:wght@400;500;600&display=swap"
+      rel="stylesheet"
+    />
+  </Fragment>
+  <div class="reveal slides-light">
+    <div class="slides">
+      <section>
+        <h1 class="slide-heading-lg">Product Design</h1>
+        <p class="slide-body text-xl mt-4">by Ka‘a Kihe</p>
+      </section>
+
+      <section>
+        <h1 class="slide-heading-lg">Nothing Else Like the Web as a Medium</h1>
+      </section>
+
+      <section>
+        <h2 class="slide-heading-sm mb-8">The web is...</h2>
+        <div class="flex flex-col items-center gap-6">
+          <p class="fragment slide-heading-lg">interactive</p>
+          <p class="fragment slide-heading-lg">adaptive</p>
+          <p class="fragment slide-heading-lg">invisible</p>
+        </div>
+      </section>
+
+      <section>
+        <h1 class="slide-heading-lg">
+          The <em>design</em> is <strong>not</strong> the <em>product</em>
+        </h1>
+      </section>
+
+      <section>
+        <h1 class="slide-heading-lg slide-heading-sentence">
+          Some useful ways designers can work with developers
+        </h1>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">Colors</h2>
+        <ul class="slide-list">
+          <li class="fragment">
+            Include intent alongside names — primary, secondary, body, heading
+          </li>
+          <li class="fragment">
+            Full scale 50–950 <a
+              href="https://tailwindcss.com/docs/customizing-colors"
+              target="_blank"
+              rel="noopener"
+              class="slide-link">(Tailwind-style)</a
+            > provides flexibility, constraints, and consistency.
+          </li>
+          <li class="fragment">
+            Consider states for your colors - hover, active, focus, etc.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">Fonts</h2>
+        <ul class="slide-list">
+          <li class="fragment">
+            Web-first options like Google Fonts are fast, free, and easy to
+            adopt
+          </li>
+          <li class="fragment">
+            Foundry fonts can add cost and complexity — worth it when branding
+            needs it
+          </li>
+          <li class="fragment">
+            Variable fonts provide a lot of flexibility and control.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">Images</h2>
+        <ul class="slide-list">
+          <li class="fragment">
+            A single source makes life easier for everyone
+          </li>
+          <li class="fragment">
+            <code>hero-bg-desktop.jpg</code> is clearer than <code
+              >IMG_4829_final_v2.png</code
+            >
+          </li>
+          <li class="fragment">
+            Drafting <code>alt</code> when you export helps — you know the intent
+            best
+          </li>
+          <li class="fragment">
+            Optimize your images - know best practices about when to use JPG,
+            PNG, GIF, SVG.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">Handoff document</h2>
+        <ul class="slide-list">
+          <li class="fragment">
+            A page or two of notes — just enough to share context and reduce
+            back-and-forth
+          </li>
+          <li class="fragment">
+            Breakpoints, spacing, component variants, anything that isn’t
+            obvious at a glance
+          </li>
+          <li class="fragment">
+            Documentation is a gift to future-you and to the team
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">What tends to get in the way</h2>
+        <ul class="slide-list slide-list--compact">
+          <li class="fragment">
+            <strong>PDFs</strong> — nice for review, but the source file has inspectable
+            specs
+          </li>
+          <li class="fragment">
+            <strong>1x-only exports</strong> — 2x or design specs help devs match
+            intent
+          </li>
+          <li class="fragment">
+            <strong>Assets in many places</strong> — one shared location saves a lot
+            of hunting
+          </li>
+          <li class="fragment">
+            <strong>Screenshots instead of the working file</strong> — view access
+            lets devs pull exact values
+          </li>
+          <li class="fragment">
+            <strong>Inconsistent naming</strong> — agreeing on <code
+              >Button</code
+            > vs <code>btn-primary</code> up front helps
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-heading-sm mb-8">Some Demos for Ya</h2>
+        <a
+          href="/"
+          class="slide-cta inline-flex items-center gap-2 rounded-xl border px-6 py-3 text-lg font-medium transition-colors"
+        >
+          See'em all
+        </a>
+      </section>
+    </div>
+  </div>
+
+  <script>
+    // @ts-expect-error no types for reveal.js
+    const { default: Reveal } = await import("reveal.js");
+
+    Reveal.initialize({
+      hash: true,
+      transition: "slide",
+      backgroundTransition: "fade",
+      keyboard: true,
+    });
+  </script>
+</Layout>
+
+<style is:global>
+  :root {
+    --font-sans: "Zalando Sans", system-ui, sans-serif;
+    --font-sans-expanded:
+      "Zalando Sans Expanded", "Zalando Sans", system-ui, sans-serif;
+  }
+  .reveal {
+    font-family: var(--font-sans);
+    background-color: var(--color-slide-viewport);
+  }
+  .reveal .slides {
+    background-color: var(--color-slide-bg);
+    box-shadow: var(--color-slide-shadow);
+    border-radius: 2rem;
+  }
+  .reveal .slides section {
+    min-height: 100vh;
+    padding-inline: 2rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .reveal h1,
+  .reveal h2 {
+    font-family: var(--font-sans-expanded);
+    text-transform: none;
+    color: var(--color-slide-title);
+  }
+  .reveal .slide-heading-lg {
+    font-family: var(--font-sans-expanded);
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 700;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .reveal .slide-heading-sentence {
+    text-transform: none;
+  }
+  .reveal .slide-heading-sm {
+    font-size: clamp(1.25rem, 3vw, 1.75rem);
+    font-weight: 600;
+    text-align: center;
+    text-transform: uppercase;
+  }
+  .reveal .slide-body {
+    color: var(--color-slide-body);
+  }
+  .reveal .slide-body-muted {
+    color: var(--color-slide-body);
+    opacity: 0.85;
+  }
+  .reveal .slide-cta {
+    color: var(--color-slide-title);
+    border-color: var(--color-slide-title);
+    background-color: rgba(45, 50, 123, 0.08);
+    text-decoration: none;
+  }
+  .reveal .slide-cta:hover {
+    background-color: rgba(45, 50, 123, 0.15);
+    border-color: var(--color-slide-title);
+  }
+  .reveal .slides section a {
+    color: var(--color-slide-title);
+  }
+  .reveal .slide-link {
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+  .reveal .slide-link:hover {
+    opacity: 0.85;
+  }
+  .reveal .slide-topic {
+    font-size: clamp(1.5rem, 3.5vw, 2.25rem);
+    margin-bottom: 1.5rem;
+  }
+  .reveal .slide-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .reveal .slide-list li {
+    color: var(--color-slide-body);
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    line-height: 1.6;
+    padding: 0.5rem 0;
+    padding-left: 1.5rem;
+    position: relative;
+  }
+  .reveal .slide-list li::before {
+    content: "–";
+    position: absolute;
+    left: 0;
+    color: var(--color-slide-title);
+  }
+  .reveal .slide-list code {
+    font-family: ui-monospace, monospace;
+    font-size: 0.9em;
+    background: rgba(45, 50, 123, 0.12);
+    padding: 0.15em 0.4em;
+    border-radius: 0.25rem;
+  }
+  .reveal .slide-list--compact li {
+    font-size: clamp(0.9rem, 1.8vw, 1.1rem);
+    padding: 0.35rem 0;
+  }
+</style>

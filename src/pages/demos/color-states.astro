@@ -1,0 +1,75 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Color States">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Color States</h1>
+      <p class="text-zinc-500 mb-12">
+        Consider hover, active, and focus when defining your palette. Each state
+        should feel intentional.
+      </p>
+
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6 mb-8">
+        <h2 class="text-lg font-medium mb-4">Primary button</h2>
+        <div class="flex flex-wrap gap-4 items-center">
+          <button
+            type="button"
+            class="btn-primary px-6 py-2 rounded-lg font-medium transition-colors"
+          >
+            Default
+          </button>
+          <span class="text-zinc-500 text-sm">Hover, focus, and active me</span>
+        </div>
+        <p class="text-xs font-mono text-zinc-500 mt-4">
+          blue-600 → blue-700 (hover) → blue-800 (active)
+        </p>
+      </div>
+
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+        <h2 class="text-lg font-medium mb-4">Focus ring</h2>
+        <p class="text-zinc-400 text-sm mb-4">
+          Tab to focus. Visible focus styles help keyboard users.
+        </p>
+        <button
+          type="button"
+          class="btn-focus px-6 py-2 rounded-lg font-medium transition-all"
+        >
+          Focus me
+        </button>
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .btn-primary {
+    background-color: #2563eb;
+    color: white;
+  }
+  .btn-primary:hover {
+    background-color: #1d4ed8;
+  }
+  .btn-primary:active {
+    background-color: #1e40af;
+  }
+  .btn-primary:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+
+  .btn-focus {
+    background-color: #27272a;
+    border: 1px solid #52525b;
+  }
+  .btn-focus:focus-visible {
+    outline: 2px solid #3b82f6;
+    outline-offset: 2px;
+  }
+</style>

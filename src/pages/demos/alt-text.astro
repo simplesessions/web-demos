@@ -1,0 +1,64 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Alt Text">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Alt Text</h1>
+      <p class="text-zinc-500 mb-12">
+        Good alt describes what the image conveys. Draft it when you export —
+        you know the intent best.
+      </p>
+
+      <div class="grid sm:grid-cols-2 gap-8">
+        <div class="rounded-xl border border-emerald-900/50 bg-emerald-950/20 p-6">
+          <p class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-4">
+            Good alt
+          </p>
+          <div class="aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-zinc-900">
+            <img
+              src="/cat-optimized.jpg"
+              alt="Orange tabby cat sleeping on a sunny windowsill"
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <p class="text-xs font-mono text-zinc-500 truncate" title='alt="Orange tabby cat sleeping on a sunny windowsill"'>
+            alt="Orange tabby cat sleeping on a sunny windowsill"
+          </p>
+          <p class="text-sm text-zinc-400 mt-2">
+            Screen reader: “Orange tabby cat sleeping on a sunny windowsill”
+          </p>
+        </div>
+
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <p class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">
+            Empty or generic alt
+          </p>
+          <div class="aspect-[4/3] rounded-lg overflow-hidden mb-4 bg-zinc-800">
+            <img
+              src="/cat-optimized.jpg"
+              alt=""
+              class="w-full h-full object-cover"
+            />
+          </div>
+          <p class="text-xs font-mono text-zinc-500 truncate">alt=""</p>
+          <p class="text-sm text-zinc-400 mt-2">
+            Screen reader: skips it (decorative) or reads filename
+          </p>
+        </div>
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        Use <code class="bg-zinc-800 px-1 rounded">alt=""</code> for decorative
+        images. For meaningful images, describe what someone missing the image
+        needs to know.
+      </p>
+    </div>
+  </main>
+</Layout>

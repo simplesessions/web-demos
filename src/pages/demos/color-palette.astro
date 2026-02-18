@@ -1,0 +1,213 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Color Palette Generator">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Color Palette Generator</h1>
+      <p class="text-zinc-500 mb-12">
+        Pick a base color – see Tailwind-like shade variations with hex and
+        oklch values.
+      </p>
+
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6 mb-6">
+        <label class="flex items-center gap-3 mb-6">
+          <span class="text-sm text-zinc-400">Base color</span>
+          <input
+            type="color"
+            id="base-color"
+            value="#3b82f6"
+            class="w-14 h-14 rounded-lg cursor-pointer bg-transparent border border-zinc-600"
+          />
+          <span id="base-hex" class="font-mono text-sm text-zinc-500"
+            >#3b82f6</span
+          >
+        </label>
+        <div id="swatch-grid" class="swatch-grid"></div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const { parse, formatHex, formatCss, interpolate } = await import(
+      "culori"
+    );
+
+    type SwatchData = { css: string; hex: string; oklch: string };
+    const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
+    const baseColor = document.getElementById(
+      "base-color",
+    ) as HTMLInputElement;
+    const baseHex = document.getElementById("base-hex") as HTMLSpanElement;
+    const swatchGrid = document.getElementById(
+      "swatch-grid",
+    ) as HTMLDivElement;
+
+    const BASE_PCT: Record<number, number> = {
+      50: 5,
+      100: 12,
+      200: 22,
+      300: 35,
+      400: 55,
+      500: 100,
+      600: 85,
+      700: 70,
+      800: 55,
+      900: 40,
+      950: 25,
+    };
+
+    function formatOklchRounded(c: {
+      l?: number;
+      c?: number;
+      h?: number;
+    }): string {
+      const l = Math.round((c.l ?? 0) * 100) / 100;
+      const C = Math.round((c.c ?? 0) * 100) / 100;
+      const h = Math.round((c.h ?? 0) * 100) / 100;
+      return `oklch(${l} ${C} ${h})`;
+    }
+
+    async function fetchPalette(
+      hex: string,
+    ): Promise<Record<string, SwatchData> | null> {
+      const clean = hex.replace("#", "");
+      try {
+        const res = await fetch(`https://www.tints.dev/api/${clean}`);
+        const text = await res.text();
+        const parsed = JSON.parse(text);
+        const obj = typeof parsed === "string" ? JSON.parse(parsed) : parsed;
+        const api = obj?.api ?? obj;
+        if (!api || typeof api !== "object") return null;
+        const out: Record<string, SwatchData> = {};
+        for (const shade of SHADES) {
+          const oklchStr = api[String(shade)] as string | undefined;
+          if (!oklchStr) continue;
+          const color = parse(oklchStr);
+          if (!color) continue;
+          const oklchColor = color.mode === "oklch" ? color : undefined;
+          out[String(shade)] = {
+            css: oklchStr,
+            hex: formatHex(color) ?? "",
+            oklch: oklchColor ? formatOklchRounded(oklchColor) : oklchStr,
+          };
+        }
+        return out;
+      } catch {
+        return null;
+      }
+    }
+
+    function fallbackPalette(hex: string): Record<string, SwatchData> {
+      const base = parse(hex);
+      if (!base) return {};
+      const lerpLight = interpolate(["white", base], "oklch");
+      const lerpDark = interpolate([base, "black"], "oklch");
+      const out: Record<string, SwatchData> = {};
+      for (const [shade, pct] of Object.entries(BASE_PCT)) {
+        let color;
+        if (pct >= 100) color = base;
+        else if (Number(shade) <= 400) color = lerpLight(pct / 100);
+        else color = lerpDark((100 - pct) / 100);
+        if (!color) continue;
+        const hexStr = formatHex(color);
+        const cssStr = formatCss(color);
+        if (!hexStr || !cssStr) continue;
+        out[shade] = {
+          css: cssStr,
+          hex: hexStr,
+          oklch: formatOklchRounded(color),
+        };
+      }
+      return out;
+    }
+
+    function renderSwatches(swatches: Record<string, SwatchData>) {
+      SHADES.forEach((shade) => {
+        const data = swatches[String(shade)];
+        if (!data) return;
+        const div = document.createElement("div");
+        div.className = "swatch";
+        div.innerHTML = `
+          <div class="swatch-preview" style="background: ${data.css}"></div>
+          <div class="swatch-meta">
+            <span class="swatch-label">${shade}</span>
+            <span class="swatch-hex" title="${data.hex}">${data.hex}</span>
+            <span class="swatch-oklch" title="${data.oklch}">${data.oklch}</span>
+          </div>
+        `;
+        swatchGrid?.appendChild(div);
+      });
+    }
+
+    function clearSwatches() {
+      if (!swatchGrid) return;
+      swatchGrid.innerHTML = "";
+    }
+
+    async function update() {
+      const hex = baseColor?.value ?? "#3b82f6";
+      if (baseHex) baseHex.textContent = hex;
+      clearSwatches();
+      const swatches = (await fetchPalette(hex)) ?? fallbackPalette(hex);
+      if (baseColor?.value !== hex) return;
+      if (Object.keys(swatches).length) {
+        renderSwatches(swatches);
+      } else {
+        swatchGrid?.insertAdjacentHTML(
+          "beforeend",
+          '<p class="text-zinc-500 text-sm col-span-full">Could not generate palette</p>',
+        );
+      }
+    }
+
+    baseColor?.addEventListener("input", update);
+    update();
+  </script>
+</Layout>
+
+<style>
+  .swatch-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+    gap: 0.75rem;
+  }
+  .swatch {
+    display: flex;
+    flex-direction: column;
+    border-radius: 0.5rem;
+    overflow: hidden;
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    background: rgba(39, 39, 42, 0.5);
+  }
+  .swatch-preview {
+    height: 3rem;
+    min-height: 3rem;
+  }
+  .swatch-meta {
+    padding: 0.375rem 0.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.125rem;
+  }
+  .swatch-label {
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: #fafafa;
+  }
+  .swatch-hex,
+  .swatch-oklch {
+    font-size: 0.65rem;
+    font-family: ui-monospace, monospace;
+    color: #71717a;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+</style>

@@ -1,0 +1,64 @@
+---
+import Layout from "../../layouts/Layout.astro";
+
+const formats = [
+  {
+    name: "JPG / JPEG",
+    use: "Photos, complex imagery",
+    notes: "Lossy compression, no transparency. Best for photos.",
+  },
+  {
+    name: "PNG",
+    use: "When you need transparency",
+    notes: "Lossless, larger files. Logos, UI assets with transparency.",
+  },
+  {
+    name: "WebP",
+    use: "Modern replacement for JPG/PNG",
+    notes: "Smaller than JPG/PNG at same quality. Good browser support.",
+  },
+  {
+    name: "SVG",
+    use: "Icons, logos, simple graphics",
+    notes: "Vector, scales infinitely. Great for line art and icons.",
+  },
+  {
+    name: "GIF",
+    use: "Simple animation",
+    notes: "Limited to 256 colors. Animated WebP often better for video-like content.",
+  },
+];
+---
+
+<Layout title="Image Formats">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Image Formats</h1>
+      <p class="text-zinc-500 mb-12">
+        Pick the right format. Optimize before handoff.
+      </p>
+
+      <div class="space-y-4">
+        {formats.map((f) => (
+          <div
+            class="rounded-xl border border-zinc-800 bg-zinc-900 p-5"
+          >
+            <h2 class="font-medium text-zinc-100">{f.name}</h2>
+            <p class="text-sm text-zinc-400 mt-1">{f.use}</p>
+            <p class="text-sm text-zinc-500 mt-2">{f.notes}</p>
+          </div>
+        ))}
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        See <a href="/demos/image-compare" class="text-blue-400 hover:underline">Image Compare</a> for
+        optimization size impact.
+      </p>
+    </div>
+  </main>
+</Layout>

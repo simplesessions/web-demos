@@ -13,6 +13,11 @@ const demos = [
   { name: 'Subgrid', path: '/demos/subgrid', desc: 'Child grid inherits parent columns' },
   { name: 'backdrop-filter & dialog', path: '/demos/backdrop-filter', desc: 'Modal with frosted backdrop' },
   { name: 'color-mix()', path: '/demos/color-mix', desc: 'Blend colors in CSS' },
+  { name: 'Color Palette Generator', path: '/demos/color-palette', desc: 'Tailwind-like shades from a base color' },
+  { name: 'Color States', path: '/demos/color-states', desc: 'Hover, active, focus with palette shades' },
+  { name: 'Alt Text', path: '/demos/alt-text', desc: 'Good vs empty alt; screen reader preview' },
+  { name: 'Image Formats', path: '/demos/image-formats', desc: 'When to use JPG, PNG, WebP, SVG' },
+  { name: 'Spacing Scale', path: '/demos/spacing-scale', desc: 'Consistent spacing tokens for handoff' },
   { name: 'scroll-margin', path: '/demos/scroll-margin', desc: 'Offset for anchor links' },
   { name: 'Variable Font', path: '/demos/variable-font', desc: 'Roboto Flex with axis controls' },
   { name: 'View Transitions', path: '/demos/view-transitions', desc: 'Smooth page navigations' },
@@ -32,6 +37,13 @@ const demos = [
       <p class="text-zinc-400 mb-12">
         Quick examples for presentation. Pick one to explore.
       </p>
+      <a
+        href="/slides"
+        class="mb-8 block rounded-xl border border-zinc-700 bg-zinc-900 px-6 py-4 text-zinc-200 hover:border-zinc-500 hover:bg-zinc-800 transition-colors"
+      >
+        <span class="font-medium">Slides presentation</span>
+        <p class="text-sm text-zinc-500 mt-1">Product design presentation deck</p>
+      </a>
       <nav class="space-y-4">
         {demos.map((demo) => (
           <a
