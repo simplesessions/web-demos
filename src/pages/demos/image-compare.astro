@@ -1,0 +1,189 @@
+---
+import Layout from "../../layouts/Layout.astro";
+import { statSync } from "fs";
+import { join } from "path";
+
+const publicDir = join(process.cwd(), "public");
+
+function formatSize(bytes: number) {
+  if (bytes < 1024) return `${bytes} B`;
+  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
+  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
+}
+
+const images = [
+  { src: "/cat.jpg", mark: "😵", size: formatSize(statSync(join(publicDir, "cat.jpg")).size) },
+  { src: "/cat-optimized.jpg", mark: "😅", size: formatSize(statSync(join(publicDir, "cat-optimized.jpg")).size) },
+];
+---
+
+<Layout title="Image Compare">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Image Compare</h1>
+      <p class="text-zinc-500 mb-12">
+        One of these is optimized. Guess which, then click to compare
+        full-screen. Use arrow keys to toggle.
+      </p>
+
+      <div class="grid grid-cols-2 gap-8">
+        {
+          images.map((img, i) => (
+            <button
+              type="button"
+              class="image-card group text-left rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden hover:border-zinc-600 transition-colors cursor-pointer"
+              data-index={i}
+            >
+              <div class="aspect-[4/3] overflow-hidden">
+                <img
+                  src={img.src}
+                  alt="Cat"
+                  class="w-full h-full object-cover"
+                />
+              </div>
+              <div class="p-4 flex items-center justify-between">
+                <span class="font-mono text-lg text-zinc-400">{img.mark}</span>
+                <span class="text-zinc-500 text-sm group-hover:text-zinc-300">
+                  Click to view
+                </span>
+              </div>
+            </button>
+          ))
+        }
+      </div>
+
+      <div class="mt-8 flex flex-col items-center gap-4">
+        <button
+          type="button"
+          id="reveal-sizes"
+          class="rounded-lg border border-zinc-700 px-4 py-2 text-sm hover:bg-zinc-800 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+        >
+          Reveal file sizes
+        </button>
+        <div id="sizes-display" class="hidden grid grid-cols-2 gap-8 w-full max-w-2xl">
+          {images.map((img, i) => (
+            <div class="image-size text-center" data-index={i}>
+              <span class="font-mono text-zinc-400">{img.mark}</span>
+              <span class="ml-2 font-mono text-emerald-400">{img.size}</span>
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <dialog id="viewer" class="viewer-dialog">
+    <div
+      id="viewer-overlay"
+      class="fixed inset-0 bg-black/90 flex items-center justify-center p-4 cursor-zoom-out"
+    >
+      <button
+        type="button"
+        class="viewer-close absolute top-4 right-4 z-20 text-zinc-400 hover:text-white text-2xl"
+        aria-label="Close"
+      >
+        ×
+      </button>
+      <button
+        type="button"
+        class="viewer-prev absolute left-4 top-1/2 -translate-y-1/2 z-20 text-zinc-400 hover:text-white text-3xl px-2"
+        aria-label="Previous"
+      >
+        ‹
+      </button>
+      <img
+        id="viewer-img"
+        src=""
+        alt="Full size"
+        class="max-w-full max-h-[90vh] object-contain"
+      />
+      <button
+        type="button"
+        class="viewer-next absolute right-4 top-1/2 -translate-y-1/2 z-20 text-zinc-400 hover:text-white text-3xl px-2"
+        aria-label="Next"
+      >
+        ›
+      </button>
+      <div
+        class="absolute bottom-4 left-1/2 -translate-x-1/2 text-zinc-500 text-sm"
+      >
+        Mark <span id="viewer-mark" class="font-mono"></span> · ← → to toggle · Esc
+        to close
+      </div>
+    </div>
+  </dialog>
+
+  <script define:vars={{ images }}>
+    document.getElementById("reveal-sizes")?.addEventListener("click", () => {
+      const display = document.getElementById("sizes-display");
+      display?.classList.remove("hidden");
+      document.getElementById("reveal-sizes")?.setAttribute("disabled", "true");
+    });
+    const viewer = document.getElementById("viewer");
+    const viewerImg = document.getElementById("viewer-img");
+    const viewerMark = document.getElementById("viewer-mark");
+    let currentIndex = 0;
+
+    function showImage(index) {
+      currentIndex = ((index % images.length) + images.length) % images.length;
+      viewerImg.src = images[currentIndex].src;
+      viewerMark.textContent = images[currentIndex].mark;
+    }
+
+    function openViewer(index) {
+      currentIndex = index;
+      showImage(currentIndex);
+      viewer.showModal();
+    }
+
+    function closeViewer() {
+      viewer.close();
+    }
+
+    document.querySelectorAll(".image-card").forEach((btn, i) => {
+      btn.addEventListener("click", () => openViewer(i));
+    });
+
+    document
+      .querySelector(".viewer-close")
+      ?.addEventListener("click", closeViewer);
+    document
+      .querySelector(".viewer-prev")
+      ?.addEventListener("click", () => showImage(currentIndex - 1));
+    document
+      .querySelector(".viewer-next")
+      ?.addEventListener("click", () => showImage(currentIndex + 1));
+
+    document
+      .getElementById("viewer-overlay")
+      ?.addEventListener("click", (e) => {
+        if (e.target.id === "viewer-overlay") closeViewer();
+      });
+
+    document.addEventListener("keydown", (e) => {
+      if (!viewer?.open) return;
+      if (e.key === "Escape") closeViewer();
+      if (e.key === "ArrowLeft") showImage(currentIndex - 1);
+      if (e.key === "ArrowRight") showImage(currentIndex + 1);
+    });
+  </script>
+</Layout>
+
+<style>
+  .viewer-dialog {
+    border: none;
+    padding: 0;
+    background: transparent;
+    max-width: none;
+    max-height: none;
+  }
+
+  .viewer-dialog::backdrop {
+    background: rgb(0 0 0 / 0.9);
+  }
+</style>

@@ -5,15 +5,24 @@ import Layout from "../../layouts/Layout.astro";
 <Layout title="Container Queries">
   <main class="min-h-screen bg-zinc-950 text-zinc-100">
     <div class="max-w-4xl mx-auto px-6 py-16">
-      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
       <h1 class="text-3xl font-semibold mb-2">Container Queries</h1>
       <p class="text-zinc-500 mb-12">
-        Each card has its own drag handle. CQ adapts when you resize it. MQ ignores it (uses viewport).
+        Each card has its own drag handle. CQ adapts when you resize it. MQ
+        ignores it (uses viewport).
       </p>
 
       <div class="space-y-8">
         <div>
-          <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3">@container</div>
+          <div
+            class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3"
+          >
+            @container
+          </div>
           <div
             id="wrap-cq"
             class="resize-wrap relative rounded-xl border-2 border-dashed border-emerald-700/50 overflow-hidden min-h-[140px]"
@@ -38,7 +47,11 @@ import Layout from "../../layouts/Layout.astro";
         </div>
 
         <div>
-          <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">@media</div>
+          <div
+            class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3"
+          >
+            @media
+          </div>
           <div
             id="wrap-mq"
             class="resize-wrap relative rounded-xl border-2 border-dashed border-zinc-700 overflow-hidden min-h-[140px]"
@@ -48,9 +61,13 @@ import Layout from "../../layouts/Layout.astro";
               <div class="card-mq">
                 <div class="card-header-mq">
                   <span class="font-semibold">Viewport Card</span>
-                  <span class="rounded bg-zinc-700 px-2 py-0.5 text-xs">Ignores</span>
+                  <span class="rounded bg-zinc-700 px-2 py-0.5 text-xs"
+                    >Ignores</span
+                  >
                 </div>
-                <p class="text-zinc-400 text-sm mt-2">Drag handle → layout unchanged</p>
+                <p class="text-zinc-400 text-sm mt-2">
+                  Drag handle → layout unchanged
+                </p>
               </div>
             </div>
             <div
@@ -181,10 +198,12 @@ import Layout from "../../layouts/Layout.astro";
         document.addEventListener("mouseup", onUp);
       });
 
-      function onMove(e) {
+      function onMove(e: MouseEvent) {
         if (!isResizing) return;
-        const rect = wrap.getBoundingClientRect();
+        const rect = wrap?.getBoundingClientRect();
+        if (!rect) return;
         const w = e.clientX - rect.left;
+        if (!wrap) return;
         wrap.style.width = `${Math.max(200, Math.min(800, w))}px`;
       }
 

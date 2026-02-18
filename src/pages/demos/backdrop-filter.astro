@@ -52,8 +52,8 @@ import Layout from "../../layouts/Layout.astro";
   </dialog>
 
   <script>
-    const modal = document.getElementById("modal");
-    const openBtn = document.getElementById("open-modal");
+    const modal = document.getElementById("modal") as HTMLDialogElement;
+    const openBtn = document.getElementById("open-modal") as HTMLButtonElement;
     openBtn?.addEventListener("click", () => modal?.showModal());
   </script>
 </Layout>
