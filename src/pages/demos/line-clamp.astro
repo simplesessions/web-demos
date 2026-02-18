@@ -1,0 +1,68 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const cards = [
+  {
+    title: 'First Card',
+    text: 'Lorem ipsum dolor sit amet consectetur adipisicing elit. Quisquam voluptates quod tempora maiores eaque.',
+  },
+  {
+    title: 'Second Card',
+    text: 'Ducimus nulla nisi commodi atque. Repellat impedit velit saepe minima quasi. Architecto suscipit tenetur.',
+  },
+  {
+    title: 'Third Card',
+    text: 'Sapiente vero deleniti voluptatum quaerat eos. Asperiores nam aliquid nostrum inventore. Veniam unde.',
+  },
+];
+---
+<Layout title="Line Clamp (3 lines)">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-5xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Line Clamp</h1>
+      <p class="text-zinc-500 mb-12">
+        Same content, different truncation. Clamped cards stay uniform height.
+      </p>
+
+      <div class="space-y-10">
+        <div>
+          <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-4">
+            Clamped to 3 lines
+          </div>
+          <div class="flex gap-4 overflow-x-auto pb-4">
+            {cards.map((card) => (
+              <div
+                class="flex-shrink-0 w-56 rounded-xl border border-emerald-900/50 bg-emerald-950/20 p-5"
+              >
+                <h3 class="font-semibold text-zinc-200 mb-2">{card.title}</h3>
+                <p class="text-sm text-zinc-400 line-clamp-3">
+                  {card.text}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">
+            No clamp (full text)
+          </div>
+          <div class="flex gap-4 overflow-x-auto pb-4">
+            {cards.map((card) => (
+              <div class="flex-shrink-0 w-56 rounded-xl border border-zinc-800 bg-zinc-900/50 p-5">
+                <h3 class="font-semibold text-zinc-200 mb-2">{card.title}</h3>
+                <p class="text-sm text-zinc-400">{card.text}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        Tailwind <code class="bg-zinc-800 px-1 rounded">line-clamp-3</code> or
+        <code class="bg-zinc-800 px-1 rounded">-webkit-line-clamp</code> — cards stay neat in grids.
+      </p>
+    </div>
+  </main>
+</Layout>

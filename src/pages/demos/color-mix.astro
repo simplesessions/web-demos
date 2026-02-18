@@ -1,0 +1,85 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="color-mix()">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">color-mix()</h1>
+      <p class="text-zinc-500 mb-12">
+        Blend two colors. Use the pickers and slider to mix in real time.
+      </p>
+
+      <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6 mb-6">
+        <div id="preview" class="color-mix-preview h-32 rounded-lg mb-6 transition-colors duration-150"></div>
+
+        <div class="grid sm:grid-cols-2 gap-6">
+          <label class="flex items-center gap-4">
+            <input type="color" id="color1" value="#22c55e" class="w-12 h-12 rounded cursor-pointer bg-transparent" />
+            <div>
+              <span class="text-sm font-medium">Color 1</span>
+              <p id="color1-hex" class="text-xs text-zinc-500 font-mono">#22c55e</p>
+            </div>
+          </label>
+          <label class="flex items-center gap-4">
+            <input type="color" id="color2" value="#ec4899" class="w-12 h-12 rounded cursor-pointer bg-transparent" />
+            <div>
+              <span class="text-sm font-medium">Color 2</span>
+              <p id="color2-hex" class="text-xs text-zinc-500 font-mono">#ec4899</p>
+            </div>
+          </label>
+        </div>
+
+        <div class="mt-6">
+          <label class="block">
+            <span class="text-sm text-zinc-400">Mix: <span id="mix-pct-val">50</span>% color 1</span>
+            <input type="range" id="mix-pct" min="0" max="100" value="50" class="w-full mt-1" />
+          </label>
+        </div>
+
+        <label class="mt-4 flex items-center gap-2">
+          <input type="checkbox" id="use-transparent" class="rounded" />
+          <span class="text-sm">Mix with transparent instead</span>
+        </label>
+
+        <p id="formula" class="text-xs font-mono text-zinc-500 mt-6 bg-zinc-800 px-3 py-2 rounded truncate">
+          color-mix(in srgb, #22c55e 50%, #ec4899)
+        </p>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    const preview = document.getElementById('preview');
+    const color1 = document.getElementById('color1');
+    const color2 = document.getElementById('color2');
+    const mixPct = document.getElementById('mix-pct');
+    const mixPctVal = document.getElementById('mix-pct-val');
+    const useTransparent = document.getElementById('use-transparent');
+    const formula = document.getElementById('formula');
+    const color1Hex = document.getElementById('color1-hex');
+    const color2Hex = document.getElementById('color2-hex');
+
+    function update() {
+      const c1 = color1.value;
+      const c2 = useTransparent.checked ? 'transparent' : color2.value;
+      const pct = mixPct.value;
+
+      preview.style.background = useTransparent.checked
+        ? `color-mix(in srgb, ${c1} ${pct}%, transparent)`
+        : `color-mix(in srgb, ${c1} ${pct}%, ${c2})`;
+
+      mixPctVal.textContent = pct;
+      color1Hex.textContent = c1;
+      color2Hex.textContent = useTransparent.checked ? 'transparent' : color2.value;
+      formula.textContent = useTransparent.checked
+        ? `color-mix(in srgb, ${c1} ${pct}%, transparent)`
+        : `color-mix(in srgb, ${c1} ${pct}%, ${c2})`;
+    }
+
+    [color1, color2, mixPct, useTransparent].forEach((el) => el?.addEventListener('input', update));
+    [useTransparent].forEach((el) => el?.addEventListener('change', update));
+    update();
+  </script>
+</Layout>

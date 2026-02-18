@@ -1,0 +1,104 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const cards = [
+  { title: 'Short', excerpt: 'One line.', tag: 'CSS' },
+  { title: 'Medium length title here', excerpt: 'This card has a few lines of descriptive text. The content varies in length from card to card.', tag: 'Layout' },
+  { title: 'Longer', excerpt: 'Two sentences. They take up more vertical space than the other cards. Without subgrid, the button would sit at different heights.', tag: 'Grid' },
+];
+---
+<Layout title="Subgrid">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-5xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Subgrid</h1>
+      <p class="text-zinc-500 mb-12">
+        Card grids where each card's internal rows align across all cards. Without subgrid, each card's grid is independent — titles and buttons sit at different heights.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-12">
+        <div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">Without subgrid</div>
+          <div class="flex gap-4">
+            {cards.map((c) => (
+              <article class="card-no-subgrid flex-1 rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden">
+                <div class="aspect-video bg-zinc-800"></div>
+                <div class="p-4 flex flex-col">
+                  <h3 class="font-semibold">{c.title}</h3>
+                  <p class="text-zinc-400 text-sm mt-2 flex-1">{c.excerpt}</p>
+                  <button class="mt-4 rounded bg-zinc-700 px-3 py-1.5 text-sm self-start">Read</button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p class="text-zinc-500 text-xs mt-3">Buttons and titles don't align — each card sizes its own content.</p>
+        </div>
+
+        <div>
+          <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-4">With subgrid</div>
+          <div class="subgrid-parent">
+            {cards.map((c) => (
+              <article class="subgrid-card">
+                <div class="subgrid-img"></div>
+                <h3 class="subgrid-title">{c.title}</h3>
+                <p class="subgrid-excerpt">{c.excerpt}</p>
+                <div class="subgrid-footer">
+                  <button class="rounded bg-emerald-900/50 px-3 py-1.5 text-sm text-emerald-400">Read</button>
+                </div>
+              </article>
+            ))}
+          </div>
+          <p class="text-zinc-500 text-xs mt-3">Same content — titles and buttons align. Child inherits parent row tracks.</p>
+        </div>
+      </div>
+
+      <div class="mt-12 rounded-xl border border-zinc-800 bg-zinc-900/50 p-6">
+        <h3 class="font-semibold text-zinc-200 mb-2">Why subgrid?</h3>
+        <p class="text-zinc-400 text-sm">
+          Each card has: image, title, excerpt, button. The excerpt varies in length. The parent grid defines 4 rows. Each card uses{" "}
+          <code class="bg-zinc-800 px-1 rounded">grid-template-rows: subgrid</code> so its 4 children slot into those shared rows.
+          The excerpt row grows to fit the longest content; all cards share that row height. Result: baselines align across the grid.
+        </p>
+      </div>
+    </div>
+  </main>
+  <style>
+    .subgrid-parent {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      grid-template-rows: auto auto 1fr auto;
+      gap: 1rem;
+    }
+
+    .subgrid-card {
+      display: grid;
+      grid-template-rows: subgrid;
+      grid-row: 1 / -1;
+      background: rgb(24 24 27);
+      border: 1px solid rgb(63 63 70);
+      border-radius: 0.75rem;
+      overflow: hidden;
+    }
+
+    .subgrid-img {
+      aspect-ratio: 16/10;
+      background: rgb(39 39 42);
+    }
+
+    .subgrid-title {
+      padding: 0.75rem 1rem 0;
+      font-weight: 600;
+      font-size: 0.95rem;
+    }
+
+    .subgrid-excerpt {
+      padding: 0.25rem 1rem;
+      font-size: 0.8rem;
+      color: rgb(161 161 170);
+    }
+
+    .subgrid-footer {
+      padding: 1rem;
+    }
+  </style>
+</Layout>

@@ -1,0 +1,32 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Web Animations API">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100 flex items-center justify-center">
+    <div class="text-center">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block absolute top-6 left-6">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-6">Web Animations API</h1>
+      <div id="box" class="w-20 h-20 mx-auto rounded-lg bg-amber-500"></div>
+      <button
+        id="play"
+        class="mt-8 px-6 py-2 rounded-lg bg-zinc-800 hover:bg-zinc-700 text-zinc-200"
+      >
+        Play
+      </button>
+    </div>
+  </main>
+  <script>
+    const box = document.getElementById('box')!;
+    const playBtn = document.getElementById('play')!;
+    const anim = box.animate(
+      [
+        { transform: 'scale(1) rotate(0deg)' },
+        { transform: 'scale(1.2) rotate(180deg)' },
+        { transform: 'scale(1) rotate(360deg)' },
+      ],
+      { duration: 1000, fill: 'forwards' }
+    );
+    anim.pause();
+    playBtn.onclick = () => (anim.playState === 'running' ? anim.cancel() : anim.play());
+  </script>
+</Layout>

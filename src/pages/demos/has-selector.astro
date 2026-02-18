@@ -1,0 +1,78 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title=":has() Selector">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">:has() Parent Selector</h1>
+      <p class="text-zinc-500 mb-12">
+        Style a parent based on its children. Same class — different layout when it has an image.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <article class="card-has rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <h3 class="font-semibold text-zinc-200">Text-only card</h3>
+          <p class="text-zinc-400 text-sm mt-2">No image inside.</p>
+        </article>
+        <article class="card-has rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <div class="aspect-video rounded-t-xl bg-gradient-to-br from-amber-600 to-rose-600"></div>
+          <h3 class="font-semibold text-zinc-200">Card with image</h3>
+          <p class="text-zinc-400 text-sm mt-2">Has image inside.</p>
+        </article>
+      </div>
+
+      <div class="mt-8 flex gap-4 text-sm">
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded border border-zinc-700 bg-zinc-900"></div>
+          <span class="text-zinc-500">Default: compact</span>
+        </div>
+        <div class="flex items-center gap-2">
+          <div class="w-4 h-4 rounded border-2 border-emerald-500 bg-emerald-950/50"></div>
+          <span class="text-zinc-500">:has(.aspect-video): featured layout</span>
+        </div>
+      </div>
+    </div>
+  </main>
+  <style>
+    .card-has {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+    }
+
+    .card-has h3 {
+      font-size: 1rem;
+    }
+
+    /* When card CONTAINS an image/visual block → totally different styling */
+    .card-has:has(.aspect-video) {
+      border-width: 2px;
+      border-color: rgb(34 197 94);
+      background: linear-gradient(180deg, rgb(34 197 94 / 0.08) 0%, rgb(24 24 27) 100%);
+      padding: 0;
+      overflow: hidden;
+    }
+
+    .card-has:has(.aspect-video) h3 {
+      font-size: 1.5rem;
+      padding: 0 1.5rem;
+      margin-top: 0.5rem;
+    }
+
+    .card-has:has(.aspect-video) p {
+      padding: 0 1.5rem 1.5rem;
+    }
+
+    .card-has:has(.aspect-video)::before {
+      content: 'Featured';
+      display: block;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: rgb(34 197 94);
+      padding: 0.5rem 1.5rem 0;
+    }
+  </style>
+</Layout>

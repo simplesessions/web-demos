@@ -1,0 +1,201 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Container Queries">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Container Queries</h1>
+      <p class="text-zinc-500 mb-12">
+        Each card has its own drag handle. CQ adapts when you resize it. MQ ignores it (uses viewport).
+      </p>
+
+      <div class="space-y-8">
+        <div>
+          <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3">@container</div>
+          <div
+            id="wrap-cq"
+            class="resize-wrap relative rounded-xl border-2 border-dashed border-emerald-700/50 overflow-hidden min-h-[140px]"
+            style="width: 500px; min-width: 200px; max-width: 100%"
+          >
+            <div id="container-cq" class="container-cq h-full min-w-0">
+              <div class="card-inner">
+                <div class="card-header">
+                  <span class="card-title">Responsive Card</span>
+                  <span class="card-badge">Adapts</span>
+                </div>
+                <p class="card-desc">Drag handle → layout changes</p>
+              </div>
+            </div>
+            <div
+              data-handle="wrap-cq"
+              class="resize-handle absolute right-0 top-0 bottom-0 w-3 cursor-col-resize flex items-center justify-center hover:bg-emerald-700/30 transition-colors"
+            >
+              <div class="w-1 h-12 rounded-full bg-emerald-600/50"></div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">@media</div>
+          <div
+            id="wrap-mq"
+            class="resize-wrap relative rounded-xl border-2 border-dashed border-zinc-700 overflow-hidden min-h-[140px]"
+            style="width: 500px; min-width: 200px; max-width: 100%"
+          >
+            <div class="h-full min-w-0 bg-zinc-900/50">
+              <div class="card-mq">
+                <div class="card-header-mq">
+                  <span class="font-semibold">Viewport Card</span>
+                  <span class="rounded bg-zinc-700 px-2 py-0.5 text-xs">Ignores</span>
+                </div>
+                <p class="text-zinc-400 text-sm mt-2">Drag handle → layout unchanged</p>
+              </div>
+            </div>
+            <div
+              data-handle="wrap-mq"
+              class="resize-handle absolute right-0 top-0 bottom-0 w-3 cursor-col-resize flex items-center justify-center hover:bg-zinc-600/50 transition-colors"
+            >
+              <div class="w-1 h-12 rounded-full bg-zinc-600"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <p class="text-zinc-500 text-xs mt-4">← Drag each card's right edge</p>
+    </div>
+  </main>
+
+  <style>
+    #container-cq {
+      container-type: inline-size;
+      container-name: card;
+    }
+
+    .card-inner {
+      padding: 1.5rem;
+    }
+
+    .card-header {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .card-title {
+      font-weight: 600;
+    }
+
+    .card-badge {
+      align-self: flex-start;
+      background: rgb(34 197 94 / 0.2);
+      color: rgb(34 197 94);
+      padding: 0.25rem 0.5rem;
+      border-radius: 0.25rem;
+      font-size: 0.75rem;
+    }
+
+    .card-desc {
+      margin-top: 0.5rem;
+      font-size: 0.875rem;
+      color: rgb(161 161 170);
+    }
+
+    @container card (min-width: 250px) {
+      .card-header {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    @container card (min-width: 350px) {
+      .card-inner {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .card-header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .card-desc {
+        margin-top: 0;
+      }
+    }
+
+    .card-mq {
+      padding: 1.5rem;
+    }
+
+    .card-header-mq {
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    @media (min-width: 380px) {
+      .card-header-mq {
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+      }
+    }
+
+    @media (min-width: 480px) {
+      .card-mq {
+        display: grid;
+        grid-template-columns: 1fr 1.2fr;
+        gap: 1rem;
+        align-items: start;
+      }
+
+      .card-header-mq {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .card-mq p {
+        margin-top: 0;
+      }
+    }
+  </style>
+
+  <script>
+    document.querySelectorAll(".resize-handle").forEach((handle) => {
+      const wrapId = handle.getAttribute("data-handle");
+      const wrap = wrapId ? document.getElementById(wrapId) : null;
+      if (!wrap) return;
+
+      let isResizing = false;
+
+      handle.addEventListener("mousedown", (e) => {
+        e.preventDefault();
+        isResizing = true;
+        document.body.style.cursor = "col-resize";
+        document.body.style.userSelect = "none";
+        document.addEventListener("mousemove", onMove);
+        document.addEventListener("mouseup", onUp);
+      });
+
+      function onMove(e) {
+        if (!isResizing) return;
+        const rect = wrap.getBoundingClientRect();
+        const w = e.clientX - rect.left;
+        wrap.style.width = `${Math.max(200, Math.min(800, w))}px`;
+      }
+
+      function onUp() {
+        if (!isResizing) return;
+        isResizing = false;
+        document.body.style.cursor = "";
+        document.body.style.userSelect = "";
+        document.removeEventListener("mousemove", onMove);
+        document.removeEventListener("mouseup", onUp);
+      }
+    });
+  </script>
+</Layout>

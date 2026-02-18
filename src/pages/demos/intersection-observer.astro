@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Intersection Observer">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-6">Intersection Observer</h1>
+      <p class="text-zinc-400 mb-12">
+        Scroll down. Items fade in when they enter the viewport.
+      </p>
+      <div class="space-y-24">
+        {
+          new Array(50).fill(0).map((_, i: number) => (
+            <div
+              class="io-target rounded-xl border border-zinc-800 bg-zinc-900 p-8 opacity-0 transition-opacity duration-700"
+              data-observe
+            >
+              <span class="text-zinc-500">Block {i}</span>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+  </main>
+  <script>
+    document.querySelectorAll("[data-observe]").forEach((el) => {
+      new IntersectionObserver(
+        (entries) => {
+          entries.forEach(
+            (e) =>
+              e.isIntersecting &&
+              (e.target as HTMLElement).classList.remove("opacity-0"),
+          );
+        },
+        { threshold: 0.2 },
+      ).observe(el);
+    });
+  </script>
+</Layout>

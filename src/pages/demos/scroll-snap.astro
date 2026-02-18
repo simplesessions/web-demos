@@ -1,0 +1,29 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Scroll Snap">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Scroll Snap</h1>
+      <p class="text-zinc-500 mb-12">
+        Horizontal carousel that snaps items into place. Swipe or drag.
+      </p>
+
+      <div
+        class="flex overflow-x-auto gap-4 snap-x snap-mandatory pb-4 -mx-6 px-6 scroll-smooth"
+        style="scrollbar-width: thin"
+      >
+        {[1, 2, 3, 4, 5].map((i) => (
+          <div
+            class="flex-shrink-0 w-72 snap-center rounded-xl border border-zinc-800 bg-zinc-900 p-6"
+          >
+            <div class="aspect-video rounded-lg bg-zinc-800 mb-3"></div>
+            <h3 class="font-semibold">Slide {i}</h3>
+            <p class="text-zinc-500 text-sm mt-1">Snaps into view</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </main>
+</Layout>

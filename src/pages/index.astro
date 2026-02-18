@@ -1,17 +1,47 @@
 ---
+import Layout from '../layouts/Layout.astro';
 
+const demos = [
+  { name: 'text-wrap: pretty', path: '/demos/text-wrap-pretty', desc: 'Prevent orphaned words at line breaks' },
+  { name: 'Container Queries', path: '/demos/container-queries', desc: 'Layout adapts to container, not viewport' },
+  { name: 'Line Clamp', path: '/demos/line-clamp', desc: 'Truncate text to 3 lines in cards' },
+  { name: 'Fluid Typography', path: '/demos/fluid-typography', desc: 'clamp() + viewport vs container for headings' },
+  { name: ':has() Selector', path: '/demos/has-selector', desc: 'Style parent based on children' },
+  { name: 'Scroll Snap', path: '/demos/scroll-snap', desc: 'Carousel that snaps items' },
+  { name: 'aspect-ratio & object-fit', path: '/demos/aspect-ratio', desc: 'Consistent image sizing' },
+  { name: 'Subgrid', path: '/demos/subgrid', desc: 'Child grid inherits parent columns' },
+  { name: 'backdrop-filter & dialog', path: '/demos/backdrop-filter', desc: 'Modal with frosted backdrop' },
+  { name: 'color-mix()', path: '/demos/color-mix', desc: 'Blend colors in CSS' },
+  { name: 'scroll-margin', path: '/demos/scroll-margin', desc: 'Offset for anchor links' },
+  { name: 'Variable Font', path: '/demos/variable-font', desc: 'Roboto Flex with axis controls' },
+  { name: 'View Transitions', path: '/demos/view-transitions', desc: 'Smooth page navigations' },
+  { name: 'Sticky', path: '/demos/sticky', desc: 'Elements stick while scrolling' },
+  { name: 'prefers-reduced-motion', path: '/demos/prefers-reduced-motion', desc: 'Respect motion preferences' },
+  { name: 'Flex/Grid gap', path: '/demos/gap', desc: 'Spacing without margin' },
+  { name: 'Intersection Observer', path: '/demos/intersection-observer', desc: 'Lazy load & scroll-triggered effects' },
+  { name: 'Web Animations API', path: '/demos/web-animations', desc: 'Keyframe animations in JS' },
+];
 ---
-
-<html lang="en">
-	<head>
-		<meta charset="utf-8" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<link rel="icon" href="/favicon.ico" />
-		<meta name="viewport" content="width=device-width" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro</title>
-	</head>
-	<body>
-		<h1>Astro</h1>
-	</body>
-</html>
+<Layout title="Web Tech Demos">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <h1 class="text-4xl font-semibold tracking-tight text-zinc-50 mb-2">
+        Web Tech Demos
+      </h1>
+      <p class="text-zinc-400 mb-12">
+        Quick examples for presentation. Pick one to explore.
+      </p>
+      <nav class="space-y-4">
+        {demos.map((demo) => (
+          <a
+            href={demo.path}
+            class="block rounded-xl border border-zinc-800 bg-zinc-900/50 px-6 py-4 hover:border-zinc-600 hover:bg-zinc-800/50 transition-colors"
+          >
+            <span class="font-medium text-zinc-200">{demo.name}</span>
+            <p class="text-sm text-zinc-500 mt-1">{demo.desc}</p>
+          </a>
+        ))}
+      </nav>
+    </div>
+  </main>
+</Layout>

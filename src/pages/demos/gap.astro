@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Flex/Grid gap">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Flex & Grid gap</h1>
+      <p class="text-zinc-500 mb-12">
+        Spacing without margin. No collapse, no :last-child overrides.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div>
+          <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-3">With gap</div>
+          <div class="flex flex-wrap gap-4 rounded-xl border border-emerald-900/50 bg-emerald-950/20 p-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div class="w-16 h-16 rounded-lg bg-zinc-700 flex items-center justify-center text-sm">{i}</div>
+            ))}
+          </div>
+        </div>
+        <div>
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-3">With margin</div>
+          <div class="flex flex-wrap rounded-xl border border-zinc-800 bg-zinc-900 p-4 [&>div]:mr-4 [&>div]:mb-4">
+            {[1, 2, 3, 4, 5, 6].map((i) => (
+              <div class="w-16 h-16 rounded-lg bg-zinc-700 flex items-center justify-center text-sm">{i}</div>
+            ))}
+          </div>
+        </div>
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        gap handles both row and column spacing. Margins need last-child hacks.
+      </p>
+    </div>
+  </main>
+</Layout>

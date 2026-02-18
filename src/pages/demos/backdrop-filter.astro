@@ -1,0 +1,78 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="backdrop-filter & dialog">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">backdrop-filter & dialog</h1>
+      <p class="text-zinc-500 mb-12">
+        Native <code class="bg-zinc-800 px-1 rounded">&lt;dialog&gt;</code> with frosted
+        glass backdrop.
+      </p>
+
+      <button
+        id="open-modal"
+        class="rounded-lg border border-zinc-700 px-6 py-3 hover:bg-zinc-800 transition-colors"
+      >
+        Open modal
+      </button>
+
+      <div
+        class="mt-12 aspect-video rounded-xl bg-gradient-to-br from-amber-600 via-rose-600 to-violet-600 flex items-center justify-center text-zinc-900/60 font-mono text-sm"
+      >
+        Page content — will blur when modal opens
+      </div>
+    </div>
+  </main>
+
+  <dialog id="modal" class="modal-dialog">
+    <div class="rounded-xl border border-zinc-700 bg-zinc-900 p-6 max-w-md">
+      <h2 class="text-xl font-semibold mb-2 text-zinc-100">Modal</h2>
+      <p class="text-zinc-400 text-sm mb-6">
+        The backdrop uses <code class="bg-zinc-800 px-1 rounded"
+          >::backdrop</code
+        > with
+        <code class="bg-zinc-800 px-1 rounded">backdrop-filter: blur()</code>.
+      </p>
+      <form method="dialog">
+        <button
+          type="submit"
+          class="rounded-lg bg-zinc-700 px-4 py-2 hover:bg-zinc-600 transition-colors"
+        >
+          Close
+        </button>
+      </form>
+    </div>
+  </dialog>
+
+  <script>
+    const modal = document.getElementById("modal");
+    const openBtn = document.getElementById("open-modal");
+    openBtn?.addEventListener("click", () => modal?.showModal());
+  </script>
+</Layout>
+
+<style>
+  .modal-dialog {
+    border: none;
+    padding: 2rem;
+    margin: auto;
+    inset: 0;
+    width: fit-content;
+    height: fit-content;
+    max-width: calc(100% - 2rem);
+    max-height: calc(100% - 2rem);
+    background: transparent;
+  }
+
+  .modal-dialog::backdrop {
+    background: rgb(0 0 0 / 0.5);
+    backdrop-filter: blur(8px);
+  }
+</style>

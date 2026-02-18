@@ -1,0 +1,45 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Sticky Positioning">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <h1 class="text-3xl font-semibold mb-2">Sticky Positioning</h1>
+      <p class="text-zinc-500 mb-12">
+        Elements stick while scrolling. Scroll down to see the sidebar stick.
+      </p>
+
+      <div class="flex gap-8">
+        <div class="flex-1 space-y-8 pb-32">
+          {
+            new Array(50).fill(0).map((_, i: number) => (
+              <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+                <h3 class="font-semibold mb-2">Section {i}</h3>
+                <p class="text-zinc-400 text-sm">
+                  Lorem ipsum dolor sit amet. Scroll and watch the sticky
+                  sidebar on the right.
+                </p>
+              </div>
+            ))
+          }
+        </div>
+        <aside class="hidden md:block w-48 flex-shrink-0">
+          <div
+            class="sticky top-6 rounded-xl border border-emerald-900/50 bg-emerald-950/20 p-4"
+          >
+            <span class="font-mono text-xs text-emerald-400"
+              >Sticky sidebar</span
+            >
+            <p class="text-zinc-400 text-sm mt-2">Stays in view</p>
+          </div>
+        </aside>
+      </div>
+    </div>
+  </main>
+</Layout>

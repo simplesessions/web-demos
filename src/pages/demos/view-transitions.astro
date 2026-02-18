@@ -1,0 +1,37 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="View Transitions">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">View Transitions API</h1>
+      <p class="text-zinc-500 mb-12">
+        Smooth transitions between page navigations. Click a link — Astro applies view transitions.
+      </p>
+
+      <p class="text-zinc-400">
+        Enable <code class="bg-zinc-800 px-1 rounded">ViewTransitions</code> in the layout for this demo.
+        Navigate to another demo and back to see the fade/slide.
+      </p>
+
+      <div class="mt-8 flex gap-4">
+        <a
+          href="/demos/line-clamp"
+          class="rounded-lg border border-zinc-700 px-4 py-2 hover:bg-zinc-800 transition-colors"
+        >
+          Line Clamp
+        </a>
+        <a
+          href="/demos/backdrop-filter"
+          class="rounded-lg border border-zinc-700 px-4 py-2 hover:bg-zinc-800 transition-colors"
+        >
+          Backdrop Filter
+        </a>
+        <a href="/" class="rounded-lg border border-zinc-700 px-4 py-2 hover:bg-zinc-800 transition-colors">
+          Home
+        </a>
+      </div>
+    </div>
+  </main>
+</Layout>

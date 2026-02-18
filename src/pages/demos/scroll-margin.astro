@@ -1,0 +1,47 @@
+---
+import Layout from '../../layouts/Layout.astro';
+
+const sections = [
+  { id: 'one', title: 'Section 1' },
+  { id: 'two', title: 'Section 2' },
+  { id: 'three', title: 'Section 3' },
+];
+---
+<Layout title="scroll-margin">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">scroll-margin</h1>
+      <p class="text-zinc-500 mb-12">
+        Offset for anchor links. Prevents fixed header from hiding target. Click links below.
+      </p>
+
+      <nav class="flex gap-4 mb-16 sticky top-0 z-10 py-4 bg-zinc-950/90 backdrop-blur-sm -mx-6 px-6">
+        {sections.map((s) => (
+          <a
+            href={`#${s.id}`}
+            class="rounded-lg border border-zinc-700 px-4 py-2 hover:bg-zinc-800 transition-colors"
+          >
+            {s.title}
+          </a>
+        ))}
+      </nav>
+
+      <div class="space-y-24">
+        {sections.map((s) => (
+          <section
+            id={s.id}
+            class="scroll-margin-demo rounded-xl border border-zinc-800 bg-zinc-900 p-12 min-h-[50vh] flex items-center justify-center"
+          >
+            <h2 class="text-2xl font-semibold">{s.title}</h2>
+          </section>
+        ))}
+      </div>
+    </div>
+  </main>
+  <style>
+    .scroll-margin-demo {
+      scroll-margin-top: 5rem;
+    }
+  </style>
+</Layout>

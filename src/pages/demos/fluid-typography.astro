@@ -1,0 +1,61 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Fluid Typography">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-5xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Fluid Typography</h1>
+      <p class="text-zinc-500 mb-12">
+        clamp() + viewport vs container. Resize the right box to see container-based scaling.
+      </p>
+
+      <div class="grid md:grid-cols-2 gap-8">
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900 p-6">
+          <div class="text-xs font-mono text-zinc-500 uppercase tracking-wider mb-4">Media / viewport</div>
+          <h2 class="fluid-mq font-semibold text-zinc-100">
+            Heading scales with viewport
+          </h2>
+          <p class="text-zinc-500 text-sm mt-2">
+            Resize browser window to see change. clamp(1.25rem, 2vw + 1rem, 3rem)
+          </p>
+        </div>
+
+        <div
+          class="resize-x overflow-auto min-w-[280px] max-w-xl rounded-xl border border-emerald-900/50 bg-emerald-950/20 p-6"
+        >
+          <div class="text-xs font-mono text-emerald-400 uppercase tracking-wider mb-4">
+            Container query
+          </div>
+          <div class="fluid-cq-wrapper">
+            <h2 class="fluid-cq font-semibold text-zinc-100">
+              Scales with container
+            </h2>
+          </div>
+          <p class="text-zinc-500 text-sm mt-2">
+            Drag right edge. clamp(1.25rem, 8cqi + 0.5rem, 2.5rem)
+          </p>
+        </div>
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        <code class="bg-zinc-800 px-1 rounded">cqi</code> = 1% of container inline size. Same heading in a sidebar vs hero =
+        appropriate size.
+      </p>
+    </div>
+  </main>
+  <style>
+    .fluid-mq {
+      font-size: clamp(1.25rem, 2vw + 1rem, 3rem);
+    }
+
+    .fluid-cq-wrapper {
+      container-type: inline-size;
+      container-name: fluid;
+    }
+
+    .fluid-cq {
+      font-size: clamp(1.25rem, 8cqi + 0.5rem, 2.5rem);
+    }
+  </style>
+</Layout>

@@ -1,0 +1,101 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="Variable Font">
+  <link
+    slot="head"
+    rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Roboto+Flex:opsz,wght,wdth,slnt@8..144,100..900,25..151,-10..0&display=swap"
+  />
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-2xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">Variable Font</h1>
+      <p class="text-zinc-500 mb-12">
+        Roboto Flex. Adjust axes — transitions animate between states.
+      </p>
+
+      <div id="varfont-preview" class="varfont-preview rounded-xl border border-zinc-800 bg-zinc-900 p-8 mb-8 min-h-[120px] flex items-center justify-center">
+        <span>Almost before we knew it, we had left the ground.</span>
+      </div>
+
+      <div class="space-y-4">
+        <label class="block">
+          <span class="text-sm text-zinc-400">Weight (wght)</span>
+          <input type="range" id="wght" min="100" max="900" value="400" class="w-full mt-1" />
+          <span id="wght-val" class="text-xs text-zinc-500">400</span>
+        </label>
+        <label class="block">
+          <span class="text-sm text-zinc-400">Width (wdth)</span>
+          <input type="range" id="wdth" min="25" max="151" value="100" class="w-full mt-1" />
+          <span id="wdth-val" class="text-xs text-zinc-500">100</span>
+        </label>
+        <label class="block">
+          <span class="text-sm text-zinc-400">Optical size (opsz)</span>
+          <input type="range" id="opsz" min="8" max="144" value="14" class="w-full mt-1" />
+          <span id="opsz-val" class="text-xs text-zinc-500">14</span>
+        </label>
+        <label class="block">
+          <span class="text-sm text-zinc-400">Slant (slnt)</span>
+          <input type="range" id="slnt" min="-10" max="0" value="0" class="w-full mt-1" />
+          <span id="slnt-val" class="text-xs text-zinc-500">0</span>
+        </label>
+        <label class="block">
+          <span class="text-sm text-zinc-400">Font size</span>
+          <input type="range" id="size" min="12" max="72" value="24" class="w-full mt-1" />
+          <span id="size-val" class="text-xs text-zinc-500">24px</span>
+        </label>
+      </div>
+    </div>
+  </main>
+
+  <style>
+    .varfont-preview span {
+      font-family: 'Roboto Flex', sans-serif;
+      font-variation-settings: 'wght' 400, 'wdth' 100, 'opsz' 14, 'slnt' 0;
+      font-size: 24px;
+      transition:
+        font-variation-settings 0.3s ease,
+        font-size 0.3s ease;
+    }
+  </style>
+
+  <script>
+    const preview = document.getElementById('varfont-preview')?.querySelector('span');
+    const inputs = {
+      wght: document.getElementById('wght'),
+      wdth: document.getElementById('wdth'),
+      opsz: document.getElementById('opsz'),
+      slnt: document.getElementById('slnt'),
+      size: document.getElementById('size'),
+    };
+    const vals = {
+      wght: document.getElementById('wght-val'),
+      wdth: document.getElementById('wdth-val'),
+      opsz: document.getElementById('opsz-val'),
+      slnt: document.getElementById('slnt-val'),
+      size: document.getElementById('size-val'),
+    };
+
+    function update() {
+      if (!preview) return;
+      const wght = inputs.wght?.value ?? 400;
+      const wdth = inputs.wdth?.value ?? 100;
+      const opsz = inputs.opsz?.value ?? 14;
+      const slnt = inputs.slnt?.value ?? 0;
+      const size = inputs.size?.value ?? 24;
+
+      preview.style.fontVariationSettings = `"wght" ${wght}, "wdth" ${wdth}, "opsz" ${opsz}, "slnt" ${slnt}`;
+      preview.style.fontSize = `${size}px`;
+
+      vals.wght && (vals.wght.textContent = wght);
+      vals.wdth && (vals.wdth.textContent = wdth);
+      vals.opsz && (vals.opsz.textContent = opsz);
+      vals.slnt && (vals.slnt.textContent = slnt);
+      vals.size && (vals.size.textContent = `${size}px`);
+    }
+
+    Object.values(inputs).forEach((input) => input?.addEventListener('input', update));
+    update();
+  </script>
+</Layout>

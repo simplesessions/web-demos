@@ -1,0 +1,43 @@
+---
+import Layout from '../../layouts/Layout.astro';
+---
+<Layout title="aspect-ratio & object-fit">
+  <main class="min-h-screen bg-zinc-950 text-zinc-100">
+    <div class="max-w-4xl mx-auto px-6 py-16">
+      <a href="/" class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block">← Back to demos</a>
+      <h1 class="text-3xl font-semibold mb-2">aspect-ratio & object-fit</h1>
+      <p class="text-zinc-500 mb-12">
+        Consistent card heights regardless of image dimensions. No layout shift.
+      </p>
+
+      <div class="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden">
+          <div class="aspect-[4/3] bg-gradient-to-br from-amber-600 to-rose-600"></div>
+          <div class="p-4">
+            <h3 class="font-semibold">4:3</h3>
+            <p class="text-zinc-500 text-sm">aspect-[4/3]</p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden">
+          <div class="aspect-square bg-gradient-to-br from-emerald-600 to-cyan-600"></div>
+          <div class="p-4">
+            <h3 class="font-semibold">Square</h3>
+            <p class="text-zinc-500 text-sm">aspect-square</p>
+          </div>
+        </div>
+        <div class="rounded-xl border border-zinc-800 bg-zinc-900 overflow-hidden">
+          <div class="aspect-video bg-gradient-to-br from-violet-600 to-fuchsia-600"></div>
+          <div class="p-4">
+            <h3 class="font-semibold">16:9</h3>
+            <p class="text-zinc-500 text-sm">aspect-video</p>
+          </div>
+        </div>
+      </div>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        Cards stay uniform. Use <code class="bg-zinc-800 px-1 rounded">object-cover</code> or
+        <code class="bg-zinc-800 px-1 rounded">object-contain</code> on real img elements.
+      </p>
+    </div>
+  </main>
+</Layout>
