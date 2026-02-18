@@ -35,19 +35,13 @@ import Layout from "../../layouts/Layout.astro";
   </main>
 
   <script>
-    const { parse, formatHex, formatCss, interpolate } = await import(
-      "culori"
-    );
+    const { parse, formatHex, formatCss, interpolate } = await import("culori");
 
     type SwatchData = { css: string; hex: string; oklch: string };
     const SHADES = [50, 100, 200, 300, 400, 500, 600, 700, 800, 900, 950];
-    const baseColor = document.getElementById(
-      "base-color",
-    ) as HTMLInputElement;
+    const baseColor = document.getElementById("base-color") as HTMLInputElement;
     const baseHex = document.getElementById("base-hex") as HTMLSpanElement;
-    const swatchGrid = document.getElementById(
-      "swatch-grid",
-    ) as HTMLDivElement;
+    const swatchGrid = document.getElementById("swatch-grid") as HTMLDivElement;
 
     const BASE_PCT: Record<number, number> = {
       50: 5,
@@ -154,9 +148,9 @@ import Layout from "../../layouts/Layout.astro";
     async function update() {
       const hex = baseColor?.value ?? "#3b82f6";
       if (baseHex) baseHex.textContent = hex;
-      clearSwatches();
       const swatches = (await fetchPalette(hex)) ?? fallbackPalette(hex);
       if (baseColor?.value !== hex) return;
+      clearSwatches();
       if (Object.keys(swatches).length) {
         renderSwatches(swatches);
       } else {
@@ -172,7 +166,7 @@ import Layout from "../../layouts/Layout.astro";
   </script>
 </Layout>
 
-<style>
+<style is:global>
   .swatch-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
@@ -187,8 +181,8 @@ import Layout from "../../layouts/Layout.astro";
     background: rgba(39, 39, 42, 0.5);
   }
   .swatch-preview {
-    height: 3rem;
-    min-height: 3rem;
+    height: 6rem;
+    min-height: 6rem;
   }
   .swatch-meta {
     padding: 0.375rem 0.5rem;

@@ -44,21 +44,41 @@ import "reveal.js/dist/theme/white.css";
       </section>
 
       <section>
-        <h2 class="slide-topic">Colors</h2>
+        <h2 class="slide-topic">Colors: names and intent</h2>
         <ul class="slide-list">
+          <li class="fragment">“Blue” isn’t enough. Include how it’s used.</li>
           <li class="fragment">
-            Include intent alongside names — primary, secondary, body, heading
+            Example: <code>blue-600: primary CTA, links</code> vs <code
+              >blue-400: subtle borders</code
+            >
           </li>
           <li class="fragment">
-            Full scale 50–950 <a
+            Devs map intent to components. “Primary CTA” tells them where it
+            goes.
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">Colors: full scale and states</h2>
+        <ul class="slide-list">
+          <li class="fragment">
+            Provide 50–950 <a
               href="https://tailwindcss.com/docs/customizing-colors"
               target="_blank"
               rel="noopener"
               class="slide-link">(Tailwind-style)</a
-            > provides flexibility, constraints, and consistency.
+            > — devs need the full ramp, not just one shade
           </li>
           <li class="fragment">
-            Consider states for your colors - hover, active, focus, etc.
+            Specify hover, active, focus. e.g. <code
+              >blue-600 → blue-700 (hover)</code
+            >
+          </li>
+          <li class="fragment">
+            Demo: <a href="/demos/color-palette" class="slide-link"
+              >Color Palette</a
+            >, <a href="/demos/color-states" class="slide-link">Color States</a>
           </li>
         </ul>
       </section>
@@ -67,37 +87,55 @@ import "reveal.js/dist/theme/white.css";
         <h2 class="slide-topic">Fonts</h2>
         <ul class="slide-list">
           <li class="fragment">
-            Web-first options like Google Fonts are fast, free, and easy to
-            adopt
+            Web-first (Google Fonts, etc.) — fast, free, no licensing. Often one
+            line to load.
           </li>
           <li class="fragment">
-            Foundry fonts can add cost and complexity — worth it when branding
-            needs it
+            Foundry fonts add cost and weight. Use when branding really needs
+            them.
           </li>
           <li class="fragment">
-            Variable fonts provide a lot of flexibility and control.
+            Variable fonts give many weights from one file. Demo: <a
+              href="/demos/variable-font"
+              class="slide-link">Variable Font</a
+            >
           </li>
         </ul>
       </section>
 
       <section>
-        <h2 class="slide-topic">Images</h2>
+        <h2 class="slide-topic">Images: source and naming</h2>
         <ul class="slide-list">
           <li class="fragment">
-            A single source makes life easier for everyone
+            One shared location. Not Slack, email, and Drive.
           </li>
           <li class="fragment">
-            <code>hero-bg-desktop.jpg</code> is clearer than <code
-              >IMG_4829_final_v2.png</code
+            Good: <code>hero-bg-desktop.jpg</code> — role, context, format
+          </li>
+          <li class="fragment">
+            Avoid: <code>IMG_4829_final_v2.png</code> — devs can’t infer intent
+          </li>
+        </ul>
+      </section>
+
+      <section>
+        <h2 class="slide-topic">Images: alt and optimization</h2>
+        <ul class="slide-list">
+          <li class="fragment">
+            Draft <code>alt</code> when you export. You know the intent; devs often
+            guess.
+          </li>
+          <li class="fragment">
+            Optimize: WebP/AVIF for photos, SVG for icons. Know when to use JPG
+            vs PNG.
+          </li>
+          <li class="fragment">
+            Demos: <a href="/demos/alt-text" class="slide-link">Alt Text</a>, <a
+              href="/demos/image-formats"
+              class="slide-link">Image Formats</a
+            >, <a href="/demos/image-compare" class="slide-link"
+              >Image Compare</a
             >
-          </li>
-          <li class="fragment">
-            Drafting <code>alt</code> when you export helps — you know the intent
-            best
-          </li>
-          <li class="fragment">
-            Optimize your images - know best practices about when to use JPG,
-            PNG, GIF, SVG.
           </li>
         </ul>
       </section>
@@ -106,15 +144,11 @@ import "reveal.js/dist/theme/white.css";
         <h2 class="slide-topic">Handoff document</h2>
         <ul class="slide-list">
           <li class="fragment">
-            A page or two of notes — just enough to share context and reduce
-            back-and-forth
+            A page or two of notes. Breakpoints (e.g. 640, 768, 1024), spacing
+            scale (4, 8, 16…), component variants.
           </li>
           <li class="fragment">
-            Breakpoints, spacing, component variants, anything that isn’t
-            obvious at a glance
-          </li>
-          <li class="fragment">
-            Documentation is a gift to future-you and to the team
+            Example: “Cards stack on mobile, 2-col at 768px, 3-col at 1024px”.
           </li>
         </ul>
       </section>
@@ -123,25 +157,24 @@ import "reveal.js/dist/theme/white.css";
         <h2 class="slide-topic">What tends to get in the way</h2>
         <ul class="slide-list slide-list--compact">
           <li class="fragment">
-            <strong>PDFs</strong> — nice for review, but the source file has inspectable
-            specs
+            <strong>PDFs</strong> — fine for review; devs need the source file for
+            inspectable specs
           </li>
           <li class="fragment">
-            <strong>1x-only exports</strong> — 2x or design specs help devs match
-            intent
+            <strong>1x-only exports</strong> — 2x or design specs for different pixel
+            densities.
           </li>
           <li class="fragment">
-            <strong>Assets in many places</strong> — one shared location saves a lot
-            of hunting
+            <strong>Assets scattered</strong> — one repo, one link. Slack + email
+            = lost files.
           </li>
           <li class="fragment">
-            <strong>Screenshots instead of the working file</strong> — view access
-            lets devs pull exact values
+            <strong>Screenshots</strong> — view access to Figma/Sketch lets devs pull
+            exact spacing, type, colors
           </li>
           <li class="fragment">
-            <strong>Inconsistent naming</strong> — agreeing on <code
-              >Button</code
-            > vs <code>btn-primary</code> up front helps
+            <strong>Inconsistent naming</strong> — agree on <code>Button</code> vs
+            <code>btn-primary</code> early
           </li>
         </ul>
       </section>
