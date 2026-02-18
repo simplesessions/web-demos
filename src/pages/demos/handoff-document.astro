@@ -1,0 +1,289 @@
+---
+import Layout from "../../layouts/Layout.astro";
+---
+
+<Layout title="Sample Handoff Document">
+  <main class="min-h-screen bg-zinc-950 py-16">
+    <div class="max-w-3xl mx-auto px-6">
+      <a
+        href="/"
+        class="text-zinc-400 hover:text-zinc-200 text-sm mb-8 inline-block"
+        >← Back to demos</a
+      >
+      <p class="text-zinc-500 text-sm mb-2">Demo: Sample handoff document</p>
+      <h1 class="text-2xl font-semibold text-zinc-100 mb-12">
+        Design system spec — handoff to dev
+      </h1>
+
+      <article
+        class="handoff-doc rounded-2xl border border-zinc-700 overflow-hidden bg-zinc-900 text-zinc-100"
+      >
+        <header class="p-8 border-b border-zinc-800">
+          <h2 class="text-xl font-semibold text-zinc-50">
+            Project Acme — Design tokens
+          </h2>
+          <p class="text-zinc-400 text-sm mt-1">
+            One source of truth for typography, color, spacing. Dev uses this to
+            configure Tailwind and build components.
+          </p>
+        </header>
+
+        <div class="p-8 space-y-10">
+          <section>
+            <h3 class="handoff-h3">Typography</h3>
+            <div class="space-y-4">
+              <div class="grid sm:grid-cols-2 gap-4">
+                <div class="handoff-card">
+                  <p class="handoff-label">Font family</p>
+                  <p class="font-medium">Outfit (Google Fonts)</p>
+                  <p class="text-sm text-zinc-500 mt-1">
+                    Headings + body. Load via fonts.googleapis.com
+                  </p>
+                </div>
+                <div class="handoff-card">
+                  <p class="handoff-label">Weights used</p>
+                  <p class="font-mono text-sm">400, 500, 600, 700</p>
+                </div>
+              </div>
+              <div class="handoff-card">
+                <p class="handoff-label">Size scale</p>
+                <table class="w-full text-sm mt-2">
+                  <thead>
+                    <tr class="text-left text-zinc-500 border-b border-zinc-700">
+                      <th class="py-2 font-medium">Use</th>
+                      <th class="py-2 font-medium">Size</th>
+                      <th class="py-2 font-medium">Tailwind</th>
+                    </tr>
+                  </thead>
+                  <tbody class="text-zinc-300">
+                    <tr class="border-b border-zinc-800">
+                      <td class="py-2">Page title</td>
+                      <td class="py-2 font-mono">2rem / 32px</td>
+                      <td class="py-2 font-mono">text-2xl</td>
+                    </tr>
+                    <tr class="border-b border-zinc-800">
+                      <td class="py-2">Section heading</td>
+                      <td class="py-2 font-mono">1.25rem / 20px</td>
+                      <td class="py-2 font-mono">text-xl</td>
+                    </tr>
+                    <tr class="border-b border-zinc-800">
+                      <td class="py-2">Body</td>
+                      <td class="py-2 font-mono">1rem / 16px</td>
+                      <td class="py-2 font-mono">text-base</td>
+                    </tr>
+                    <tr>
+                      <td class="py-2">Caption / meta</td>
+                      <td class="py-2 font-mono">0.875rem / 14px</td>
+                      <td class="py-2 font-mono">text-sm</td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3 class="handoff-h3">Colors</h3>
+            <p class="text-zinc-400 text-sm mb-4">
+              Include intent so devs know where each shade goes.
+            </p>
+            <div class="grid sm:grid-cols-2 gap-4">
+              <div class="handoff-card">
+                <p class="handoff-label">Primary</p>
+                <div class="flex items-center gap-3 mt-2">
+                  <div
+                    class="w-12 h-12 rounded-lg shrink-0"
+                    style="background: #2563eb"
+                  />
+                  <div>
+                    <p class="font-mono text-sm">blue-600</p>
+                    <p class="text-zinc-500 text-sm">
+                      CTAs, links, key actions
+                    </p>
+                  </div>
+                </div>
+              </div>
+              <div class="handoff-card">
+                <p class="handoff-label">Secondary</p>
+                <div class="flex items-center gap-3 mt-2">
+                  <div
+                    class="w-12 h-12 rounded-lg shrink-0"
+                    style="background: #64748b"
+                  />
+                  <div>
+                    <p class="font-mono text-sm">slate-500</p>
+                    <p class="text-zinc-500 text-sm">Secondary buttons, borders</p>
+                  </div>
+                </div>
+              </div>
+              <div class="handoff-card">
+                <p class="handoff-label">Body text</p>
+                <div class="flex items-center gap-3 mt-2">
+                  <div
+                    class="w-12 h-12 rounded-lg shrink-0"
+                    style="background: #f4f4f5"
+                  />
+                  <div>
+                    <p class="font-mono text-sm">zinc-100</p>
+                    <p class="text-zinc-500 text-sm">Main content on dark bg</p>
+                  </div>
+                </div>
+              </div>
+              <div class="handoff-card">
+                <p class="handoff-label">Muted</p>
+                <div class="flex items-center gap-3 mt-2">
+                  <div
+                    class="w-12 h-12 rounded-lg shrink-0"
+                    style="background: #71717a"
+                  />
+                  <div>
+                    <p class="font-mono text-sm">zinc-500</p>
+                    <p class="text-zinc-500 text-sm">Captions, hints, disabled</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3 class="handoff-h3">Spacing</h3>
+            <p class="text-zinc-400 text-sm mb-4">
+              Base unit 4px. Use 4, 8, 12, 16, 24, 32, 48, 64. Tailwind default.
+            </p>
+            <div class="flex flex-wrap gap-2">
+              {[4, 8, 12, 16, 24, 32, 48, 64].map((n) => (
+                <div
+                  class="inline-flex items-center gap-2 rounded border border-zinc-700 bg-zinc-800 px-3 py-2"
+                >
+                  <div
+                    class="rounded bg-blue-600 shrink-0"
+                    style={`width: ${Math.min(n, 24)}px; height: ${Math.min(n, 24)}px`}
+                  />
+                  <span class="font-mono text-sm text-zinc-400">{n}</span>
+                </div>
+              ))}
+            </div>
+          </section>
+
+          <section>
+            <h3 class="handoff-h3">Breakpoints</h3>
+            <div class="handoff-card">
+              <table class="w-full text-sm">
+                <thead>
+                  <tr class="text-left text-zinc-500 border-b border-zinc-700">
+                    <th class="py-2 font-medium">Name</th>
+                    <th class="py-2 font-medium">Min width</th>
+                    <th class="py-2 font-medium">Tailwind</th>
+                  </tr>
+                </thead>
+                <tbody class="text-zinc-300">
+                  <tr class="border-b border-zinc-800">
+                    <td class="py-2">Mobile</td>
+                    <td class="py-2 font-mono">default</td>
+                    <td class="py-2 font-mono">—</td>
+                  </tr>
+                  <tr class="border-b border-zinc-800">
+                    <td class="py-2">Tablet</td>
+                    <td class="py-2 font-mono">768px</td>
+                    <td class="py-2 font-mono">md:</td>
+                  </tr>
+                  <tr>
+                    <td class="py-2">Desktop</td>
+                    <td class="py-2 font-mono">1024px</td>
+                    <td class="py-2 font-mono">lg:</td>
+                  </tr>
+                </tbody>
+              </table>
+              <p class="text-zinc-500 text-sm mt-3">
+                Cards: 1 col mobile, 2 col at md, 3 col at lg.
+              </p>
+            </div>
+          </section>
+
+          <section>
+            <h3 class="handoff-h3">Border radius</h3>
+            <p class="text-zinc-400 text-sm mb-4">
+              Buttons: 0.5rem. Cards: 0.75rem. Modals: 1rem.
+            </p>
+            <div class="flex gap-4">
+              <div
+                class="w-20 h-10 rounded-lg bg-zinc-700 flex items-center justify-center text-xs"
+              >
+                lg (8px)
+              </div>
+              <div
+                class="w-20 h-10 rounded-xl bg-zinc-700 flex items-center justify-center text-xs"
+              >
+                xl (12px)
+              </div>
+              <div
+                class="w-20 h-10 rounded-2xl bg-zinc-700 flex items-center justify-center text-xs"
+              >
+                2xl (16px)
+              </div>
+            </div>
+          </section>
+
+          <section>
+            <h3 class="handoff-h3">Notes for dev</h3>
+            <ul class="handoff-list">
+              <li>Primary button: blue-600 bg, white text, hover: blue-700</li>
+              <li>Focus ring: 2px blue-500, 2px offset</li>
+              <li>Images: export at 2x. Use WebP for photos.</li>
+              <li>All assets in /design-assets. Naming: [section]-[role].[ext]</li>
+            </ul>
+          </section>
+        </div>
+      </article>
+
+      <p class="text-zinc-500 text-sm mt-8">
+        This is the kind of doc that saves back-and-forth. A page or two, shared
+        with the source file.
+      </p>
+    </div>
+  </main>
+</Layout>
+
+<style is:global>
+  .handoff-doc {
+    font-family: system-ui, sans-serif;
+  }
+  .handoff-h3 {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #a1a1aa;
+    margin-bottom: 0.75rem;
+  }
+  .handoff-card {
+    padding: 1rem 1.25rem;
+    background: rgba(39, 39, 42, 0.6);
+    border: 1px solid rgba(63, 63, 70, 0.5);
+    border-radius: 0.5rem;
+  }
+  .handoff-label {
+    font-size: 0.75rem;
+    color: #71717a;
+    text-transform: uppercase;
+    letter-spacing: 0.03em;
+  }
+  .handoff-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+  }
+  .handoff-list li {
+    padding: 0.5rem 0;
+    padding-left: 1.25rem;
+    position: relative;
+    color: #d4d4d8;
+    font-size: 0.9375rem;
+  }
+  .handoff-list li::before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #71717a;
+  }
+</style>
