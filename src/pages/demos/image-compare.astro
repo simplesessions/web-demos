@@ -1,19 +1,9 @@
 ---
 import Layout from "../../layouts/Layout.astro";
-import { statSync } from "fs";
-import { join } from "path";
-
-const publicDir = join(process.cwd(), "public");
-
-function formatSize(bytes: number) {
-  if (bytes < 1024) return `${bytes} B`;
-  if (bytes < 1024 * 1024) return `${(bytes / 1024).toFixed(1)} KB`;
-  return `${(bytes / (1024 * 1024)).toFixed(1)} MB`;
-}
 
 const images = [
-  { src: "/cat.jpg", mark: "😵", size: formatSize(statSync(join(publicDir, "cat.jpg")).size) },
-  { src: "/cat-optimized.jpg", mark: "😅", size: formatSize(statSync(join(publicDir, "cat-optimized.jpg")).size) },
+  { src: "/cat.jpg", mark: "😵", size: "2.2 MB" },
+  { src: "/cat-optimized.jpg", mark: "😅", size: "57.5 KB", smaller: "38× smaller" },
 ];
 ---
 
@@ -70,6 +60,7 @@ const images = [
             <div class="image-size text-center" data-index={i}>
               <span class="font-mono text-zinc-400">{img.mark}</span>
               <span class="ml-2 font-mono text-emerald-400">{img.size}</span>
+              {img.smaller && <span class="ml-2 text-zinc-500 text-sm">({img.smaller})</span>}
             </div>
           ))}
         </div>
