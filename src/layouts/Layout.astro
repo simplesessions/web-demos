@@ -1,13 +1,12 @@
 ---
-import '../styles/global.css';
-import { ClientRouter } from 'astro:transitions';
-import PasswordGate from '../components/PasswordGate.astro';
+import "../styles/global.css";
+import { ClientRouter } from "astro:transitions";
 
 interface Props {
   title?: string;
 }
 
-const { title = 'Web Examples' } = Astro.props;
+const { title = "Web Examples" } = Astro.props;
 ---
 
 <html lang="en">
@@ -28,13 +27,12 @@ const { title = 'Web Examples' } = Astro.props;
     />
   </head>
   <body class="font-sans antialiased">
-    <PasswordGate />
     <slot />
   </body>
 </html>
 
 <style is:global>
   body {
-    font-family: 'Outfit', system-ui, sans-serif;
+    font-family: "Outfit", system-ui, sans-serif;
   }
 </style>
