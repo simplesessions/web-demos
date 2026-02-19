@@ -1,6 +1,7 @@
 ---
 import '../styles/global.css';
 import { ClientRouter } from 'astro:transitions';
+import PasswordGate from '../components/PasswordGate.astro';
 
 interface Props {
   title?: string;
@@ -27,6 +28,7 @@ const { title = 'Web Examples' } = Astro.props;
     />
   </head>
   <body class="font-sans antialiased">
+    <PasswordGate />
     <slot />
   </body>
 </html>
